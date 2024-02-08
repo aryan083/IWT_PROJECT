@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+select,
+button,
+input[type="file"] {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
+    width: calc(100% - 16px);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 100px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    margin-bottom: 10px;
+}
+
+#contributorsSection input {
+    margin-bottom: 5px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#softwareFields input[type="url"] {
+    margin-bottom: 10px;
+}
