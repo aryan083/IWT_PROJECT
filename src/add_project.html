@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Project</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
     <div class="container">
@@ -16,24 +18,31 @@
                 <option value="">Select Type</option>
                 <option value="software">Software</option>
                 <option value="hardware">Hardware</option>
+                <option value="other">Other</option>
             </select>
             <div id="contributorsSection">
-                <input type="text" name="contributors[]" placeholder="Contributor Name" required>
+                <label for="contributors">Contributors:</label>
+                <div id="contributors">
+                    <!-- The first contributor is static -->
+                    <div class="contributor">
+                        <input type="text" name="contributors[]" placeholder="Contributor Name" required>
+                        <select name="roles[]" required>
+                            <option value="">Select Role</option>
+                            <option value="leader">Leader</option>
+                            <option value="developer">Developer</option>
+                            <option value="designer">Designer</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" id="addContributor">Add Contributor</button>
             </div>
-            <label for="videoFile">Video of Project</label>
-            <input type="file" name="videoFile" id="videoFile" accept="video/*">
-            <label for="imageFiles">Images of Project</label>
-            <input type="file" name="imageFiles[]" id="imageFiles" accept="image/*" multiple>
-            <div id="softwareFields" style="display: none;">
-                <input type="text" name="programmingLanguages" placeholder="Programming Languages">
-                <input type="text" name="librariesUsed" placeholder="Libraries Used">
-                <input type="url" name="githubRepo" placeholder="GitHub Repository Link">
+            <div id="fileInputs">
+                <div class="file-input-wrapper">
+                    <input type="file" name="projectFiles[]" accept="image/*, video/*" required>
+                </div>
             </div>
-            <div id="hardwareFields" style="display: none;">
-                <input type="text" name="hardwareUsed" placeholder="Hardware Used">
-            </div>
+            <button type="button" id="addMoreFiles">Add More Files</button>
             <textarea name="projectFutureScope" placeholder="Future Scope"></textarea>
-            <button type="button" id="addContributor">Add Contributor</button>
             <button type="submit">Add Project</button>
         </form>
     </div>
