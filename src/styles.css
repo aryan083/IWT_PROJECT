@@ -66,6 +66,18 @@ label {
     margin-top: 10px;
 }
 
-#softwareFields input[type="url"] {
-    margin-bottom: 10px;
+.file-input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.remove-file-btn {
+    margin-left: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-file-btn i {
+    color: red;
 }

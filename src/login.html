@@ -9,13 +9,20 @@
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form id="loginForm">
-            <input type="text" id="enrollmentOrGrNo" placeholder="Enrollment/GR No." required>
-            <input type="password" id="password" placeholder="Password" required>
+        <form method="post" action="login.php">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <select name="userType" required>
+                <option value="">Select User Type</option>
+                <option value="student">Student</option>
+                <option value="parent">Parent</option>
+                <option value="faculty">Faculty</option>
+            </select>
             <button type="submit">Login</button>
+            <a href="forgot_password.html">Forgot Password?</a>
+            <br>
+            <a href="register.html">New User? Sign Up Here</a>
         </form>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
