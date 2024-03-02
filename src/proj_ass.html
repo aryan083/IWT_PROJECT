@@ -1,0 +1,166 @@
+<html lang="en"><head><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .contributorRow {
+            display: flex;
+            margin-bottom: 5px;
+        }
+
+        .contributorRow input {
+            flex: 1;
+            margin-right: 5px;
+        }
+
+        .addRemoveButtons {
+            display: flex;
+            align-items: center;
+        }
+
+        .addRemoveButtons button {
+            margin-left: 5px;
+        }
+
+        .removeContributor[disabled] {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Project</h2>
+        <form method="post" action="add_project.php" id="addProjectForm" enctype="multipart/form-data">
+            <input type="text" name="projectName" placeholder="Name of Project" required="">
+            <textarea name="projectDescription" placeholder="Description of Project" required=""></textarea>
+            <select name="projectType" id="projectType" required="">
+                <option value="">Select Type</option>
+                <option value="software">Software</option>
+                <option value="hardware">Hardware</option>
+                <option value="other">Other</option>
+            </select>
+            <div id="contributorsSection">
+                <div class="contributorRow">
+                    <input type="text" name="contributors[]" placeholder="Contributor(main)" required="">
+                    <div class="addRemoveButtons">
+                        <button type="button" class="addContributor">+</button>
+                        <button type="button" class="removeContributor" disabled="">-</button>
+                    </div>
+                </div>
+            <div class="contributorRow"><input type="text" name="contributors[]" placeholder="Contributor Name" required="" style="width: 65%;"><select name="roles[]" required="" style="width: 35%;"><option value="select_role">Select Role</option><option value="developer">Developer</option><option value="designer">Designer</option><option value="tester">Tester</option><option value="project_manager">Project Manager</option></select><div class="addRemoveButtons"><button type="button" class="addContributor">+</button><button type="button" class="removeContributor" disabled="true">-</button></div></div></div>
+            <div id="teamRolesSection">
+                <p>Team Roles:</p>
+                <button type="button" id="addTeamRole">Add Team Role</button>
+                <button type="button" class="removeTeamRole">Remove Team Role</button>
+            </div>
+            <label for="videoFile">Video of Project</label>
+            <input type="file" name="videoFile" id="videoFile" accept="video/*">
+            <label for="mediaFiles">Multimedia Files (Images, Videos, etc.)</label>
+            <input type="file" name="mediaFiles[]" id="mediaFiles" accept="image/*, video/*" multiple="">
+            <label for="documentFiles">Document Files</label>
+            <input type="file" name="documentFiles[]" id="documentFiles" accept=".pdf, .doc, .docx" multiple="">
+            <div id="softwareFields" style="display: none;">
+                <input type="text" name="programmingLanguages" placeholder="Programming Languages">
+                <input type="text" name="librariesUsed" placeholder="Libraries Used">
+                <input type="url" name="githubRepo" placeholder="GitHub Repository Link">
+            </div>
+            <div id="hardwareFields" style="display: none;">
+                <input type="text" name="hardwareUsed" placeholder="Hardware Used">
+            </div>
+            <textarea name="projectFutureScope" placeholder="Future Scope"></textarea>
+            <input type="text" name="facultyMentor" placeholder="Faculty Mentor Name">
+            <button type="submit">Add Project</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+
+  
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const contributorsSection = document.getElementById('contributorsSection');
+            const addContributorBtn = document.querySelector('.addContributor');
+            const removeContributorBtn = document.querySelector('.removeContributor');
+    
+            // Function to create a new contributor row
+            function createContributorRow() {
+                const newContributorRow = document.createElement('div');
+                newContributorRow.classList.add('contributorRow');
+    
+                const newContributorInput = document.createElement('input');
+                newContributorInput.type = 'text';
+                newContributorInput.name = 'contributors[]';
+                newContributorInput.placeholder = 'Contributor Name';
+                newContributorInput.required = true;
+                newContributorInput.style.width = '65%'; // Set width to 65%
+    
+                const newRoleSelect = document.createElement('select');
+                newRoleSelect.name = 'roles[]';
+                newRoleSelect.required = true;
+                newRoleSelect.style.width = '35%'; // Set width to 35%
+                const roleOptions = ['Select Role', 'Developer', 'Designer', 'Tester', 'Project Manager'];
+                roleOptions.forEach(function(optionText) {
+                    const option = document.createElement('option');
+                    option.value = optionText.toLowerCase().replace(/\s/g, '_');
+                    option.textContent = optionText;
+                    newRoleSelect.appendChild(option);
+                });
+    
+                const newButtonsDiv = document.createElement('div');
+                newButtonsDiv.classList.add('addRemoveButtons');
+                
+                const newAddBtn = document.createElement('button');
+                newAddBtn.type = 'button';
+                newAddBtn.classList.add('addContributor');
+                newAddBtn.textContent = '+';
+    
+                const newRemoveBtn = document.createElement('button');
+                newRemoveBtn.type = 'button';
+                newRemoveBtn.classList.add('removeContributor');
+                newRemoveBtn.setAttribute('disabled', 'true');
+                newRemoveBtn.textContent = '-';
+    
+                newButtonsDiv.appendChild(newAddBtn);
+                newButtonsDiv.appendChild(newRemoveBtn);
+    
+                newContributorRow.appendChild(newContributorInput);
+                newContributorRow.appendChild(newRoleSelect);
+                newContributorRow.appendChild(newButtonsDiv);
+    
+                return newContributorRow;
+            }
+    
+            // Add the original contributor row with a role dropdown
+            const mainContributorRow = createContributorRow();
+            mainContributorRow.querySelector('.removeContributor').setAttribute('disabled', 'true');
+            contributorsSection.appendChild(mainContributorRow);
+    
+            addContributorBtn.addEventListener('click', function() {
+                const newContributorRow = createContributorRow();
+                contributorsSection.appendChild(newContributorRow);
+    
+                // Disable remove button if only one contributor
+                if (contributorsSection.children.length > 1) {
+                    removeContributorBtn.removeAttribute('disabled');
+                }
+            });
+    
+            removeContributorBtn.addEventListener('click', function() {
+                const contributorRows = contributorsSection.querySelectorAll('.contributorRow');
+                if (contributorRows.length > 1) {
+                    const lastContributorRow = contributorRows[contributorRows.length - 1];
+                    contributorsSection.removeChild(lastContributorRow);
+                }
+    
+                // Disable remove button if only one contributor
+                if (contributorsSection.children.length === 1) {
+                    removeContributorBtn.setAttribute('disabled', 'true');
+                }
+            });
+        });
+    </script>
+
+
+</body></html>
