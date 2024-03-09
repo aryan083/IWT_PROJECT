@@ -9,7 +9,7 @@ nav{
     line-height: 75px;
     padding: 0px 100 px;
     position: fixed;
-    background-image :linear-gradient(rgb(7, 7, 7),rgb(0, 0, 0))
+    background-color :rgb(31, 31, 31);
 }
 nav .logo p{
     font-size: 30px;
@@ -45,6 +45,11 @@ nav li a{
 nav li a:hover{
 
     color: rgb(87, 222, 211);
+    transition: all 0.7s ease 0s;
+}
+nav p:hover{
+    
+    color: rgb(222, 146, 87);
     transition: all 0.7s ease 0s;
 }
 
