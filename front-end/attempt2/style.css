@@ -1,0 +1,40 @@
+body{
+    background-color: #ececec;
+    background-color: #6da9e9;
+
+    font-family: "Helvetica";
+}
+.box-area{
+    width: 930px;
+
+    
+}
+.right-box{
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 0px;
+    padding-bottom: 30px;
+}
+::placeholder{
+    font-size: 15px;
+}
+.header-text{
+    padding-left: 20px;
+
+}
+
+a{
+    margin-left: 5px;
+}
+@media only screen and (max-width: 768px){
+    .box-area{
+        margin:0 10 px;
+    }
+    .left-box{
+        height: 00px;
+        overflow: hidden;
+    }
+    .right-box{
+        margin: 10px;
+    }
+}
