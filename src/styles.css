@@ -1,3 +1,62 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family:Arial, Helvetica, sans-serif;
+
+}
+nav{
+    width:100%;
+    height:75px;
+    line-height: 75px;
+    padding: 0px 100 px;
+    position: fixed;
+    background-image :linear-gradient(rgb(7, 7, 7),rgb(0, 0, 0))
+}
+nav .logo p{
+    font-size: 30px;
+    font-weight: bold;
+    float: left;
+    color: white;
+    padding-left: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    
+}
+
+nav ul{
+    float: right;
+}
+nav li{
+    display: inline-block;
+    list-style: none;
+    
+
+
+}
+nav li a{
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 0px 30px;
+    color: white;
+    text-decoration: none;
+    
+}
+
+nav li a:hover{
+
+    color: rgb(87, 222, 211);
+    transition: all 0.7s ease 0s;
+}
+
+.contents img{
+    width:100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    padding: 0px;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -72,12 +131,87 @@ label {
 }
 
 .remove-file-btn {
-    margin-left: 10px;
+    margin-left: 5px; /* Adjust margin if needed */
+    padding: 5px; /* Add padding to reduce button size */
     background-color: transparent;
     border: none;
     cursor: pointer;
+    width: 50px; /* Set width to make the button smaller */
+    height: 35px; /* Set height to make the button smaller */
 }
 
 .remove-file-btn i {
+    font-size: 14px; /* Adjust icon size if needed */
     color: red;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.error {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    color: #007bff;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.forgot-password,
+.new-user {
+    display: none;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.new-user a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.new-user a:hover {
+    text-decoration: underline;
+}
+
+.login-options {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.login-option {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-option:hover {
+    background-color: #f0f0f0;
+}
+
+.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+form {
+    margin-top: 20px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+form.active {
+    max-height: 1000px;
+    opacity: 1;
 }
