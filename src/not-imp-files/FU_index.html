@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
-        /* CSS styles from the second HTML file */
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
@@ -126,26 +124,9 @@
         .new-user a:hover {
             text-decoration: underline;
         }
-    
     </style>
 </head>
 <body>
-
-    <nav>
-        <div class="logo">
-            <a href="homepage.html"><p>SPMS</p></a>
-        </div>
-        <ul>
-            <li><a href="homepage.html">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-    <br>
-    <br>
-    <br>
-    <br>
-
     <div class="container" id="mainContainer">
         <div class="back-button" id="backButton" style="display: none">&larr;</div>
         <h2>Login</h2>
@@ -179,8 +160,12 @@
         </div>
 
         <div class="new-user" id="newUser">
-            New User? <a href="register.html">Sign Up</a>
+            New User? <a href="#">Sign Up</a>
         </div>
+    </div>
+
+    <div id="contributorsSection">
+        <!-- Contributors section will be dynamically added here -->
     </div>
 
     <script>
@@ -286,8 +271,6 @@
                 console.log(loginDetails);
             });
         });
-        
     </script>
 </body>
 </html>
-     
