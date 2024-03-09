@@ -3,20 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration</title>
+    <title>Registration</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* CSS styles from the second HTML file */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .registration-options {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .registration-option {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .registration-option:hover {
+            background-color: #f0f0f0;
+        }
+
+        .selected {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .registration-form {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+
+        .registration-form.active {
+            max-height: 1000px;
+            opacity: 1;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        textarea,
+        select,
+        button,
+        input[type="file"] {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: calc(100% - 16px);
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .back-to-login {
+            text-align: right;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .back-to-login a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-to-login a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Student Registration</h2>
-        <form method="post" action="register_student.php">
-            <input type="text" name="enrollmentNo" placeholder="Enrollment No." required>
-            <input type="text" name="fullName" placeholder="Full Name" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="email" name="email" placeholder="Institute Email" required>
+
+    <nav>
+        <div class="logo">
+            <a href="homepage.html"><p>SPMS</p></a>
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="D:/Semster_4/IWT Project FPMS/src/login.html">login</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="container" id="mainContainer">
+        <div class="back-button" id="backButton" style="display: none">&larr;</div>
+        <h2>Registration</h2>
+
+        <div class="registration-options" id="registrationOptions">
+            <div class="registration-option" id="studentRegistrationOption">Student Registration</div>
+            <div class="registration-option" id="facultyRegistrationOption">Faculty Registration</div>
+            <div class="registration-option" id="parentRegistrationOption">Parent Registration</div>
+        </div>
+
+        <!-- Student Registration Form -->
+        <form id="studentRegistrationForm" class="registration-form">
+            <input type="text" id="studentEnrollmentNo" placeholder="Enrollment No." required>
+            <input type="password" id="studentPassword" placeholder="Password" required>
+            <input type="email" id="studentEmail" placeholder="Institute Email" required>
             <button type="submit">Register</button>
-            <a href="login.html">Already a User? Login here</a>
+            <div class="back-to-login">
+                <a href="FU_index.html">&larr; Back to Login</a>
+            </div>
+        </form>
+
+        <!-- Faculty Registration Form -->
+        <form id="facultyRegistrationForm" class="registration-form">
+            <input type="text" id="facultyID" placeholder="Faculty ID" required>
+            <input type="password" id="facultyPassword" placeholder="Password" required>
+            <input type="email" id="facultyEmail" placeholder="Email" required>
+            <button type="submit">Register</button>
+            <div class="back-to-login">
+                <a href="login.html">&larr; Back to Login</a>
+            </div>
+        </form>
+
+        <!-- Parent Registration Form -->
+        <form id="parentRegistrationForm" class="registration-form">
+            <input type="text" id="studentName" placeholder="Student Name" required>
+            <input type="email" id="parentEmail" placeholder="Parent Email" required>
+            <button type="submit">Register</button>
+            <div class="back-to-login">
+                <a href="login.html">&larr; Back to Login</a>
+            </div>
         </form>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const mainContainer = document.getElementById('mainContainer');
+            const registrationOptions = document.getElementById('registrationOptions');
+            const backButton = document.getElementById('backButton');
+
+            // Registration option elements
+            const studentRegistrationOption = document.getElementById('studentRegistrationOption');
+            const facultyRegistrationOption = document.getElementById('facultyRegistrationOption');
+            const parentRegistrationOption = document.getElementById('parentRegistrationOption');
+
+            // Registration forms
+            const studentRegistrationForm = document.getElementById('studentRegistrationForm');
+            const facultyRegistrationForm = document.getElementById('facultyRegistrationForm');
+            const parentRegistrationForm = document.getElementById('parentRegistrationForm');
+
+            // Function to update the selected registration option and styling
+            function updateSelectedRegistrationOption(optionElement) {
+                registrationOptions.style.display = 'none';
+                backButton.style.display = 'block';
+
+                studentRegistrationForm.classList.remove('active');
+                facultyRegistrationForm.classList.remove('active');
+                parentRegistrationForm.classList.remove('active');
+
+                const selectedOption = optionElement.id;
+
+                if (selectedOption === 'studentRegistrationOption') {
+                    studentRegistrationForm.classList.add('active');
+                } else if (selectedOption === 'facultyRegistrationOption') {
+                    facultyRegistrationForm.classList.add('active');
+                } else if (selectedOption === 'parentRegistrationOption') {
+                    parentRegistrationForm.classList.add('active');
+                }
+
+                // Remove 'selected' class from all options
+                studentRegistrationOption.classList.remove('selected');
+                facultyRegistrationOption.classList.remove('selected');
+                parentRegistrationOption.classList.remove('selected');
+
+                // Add 'selected' class to the clicked option
+                optionElement.classList.add('selected');
+            }
+
+            // Event listeners for registration options
+            studentRegistrationOption.addEventListener('click', function() {
+                updateSelectedRegistrationOption(studentRegistrationOption);
+            });
+
+            facultyRegistrationOption.addEventListener('click', function() {
+                updateSelectedRegistrationOption(facultyRegistrationOption);
+            });
+
+            parentRegistrationOption.addEventListener('click', function() {
+                updateSelectedRegistrationOption(parentRegistrationOption);
+            });
+
+            // Event listener for back button
+            backButton.addEventListener('click', function() {
+                registrationOptions.style.display = 'flex';
+                backButton.style.display = 'none';
+                mainContainer.style.marginBottom = '20px';
+                studentRegistrationForm.classList.remove('active');
+                facultyRegistrationForm.classList.remove('active');
+                parentRegistrationForm.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
