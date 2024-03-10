@@ -1,9 +1,10 @@
 body{
+    background-color: #ececec;
     background-color: #6da9e9;
 
     font-family: "Helvetica";
 }
-/* .box-area{
+.box-area{
     width: 930px;
 
     
@@ -24,16 +25,24 @@ body{
 
 a{
     margin-left: 5px;
-} */
+}
 @media only screen and (max-width: 768px){
     .box-area{
-        margin:0 10 px;
+        margin:0 0 px;
+        
     }
     .left-box{
-        height: 00px;
+        height: 100px;
         overflow: hidden;
+        margin-left: 00px;
+        margin-right: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
     }
     .right-box{
         margin: 10px;
     }
+}
+h2{
+    font-weight: 700;
 }
