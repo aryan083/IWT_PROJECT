@@ -6,16 +6,15 @@ body{
 }
 .box-area{
     width: 930px;
+    padding-right: 00px;
 }
-.left-box{
-    /* margin-right: 0px; */
-    /* padding-right: 0px; */
-}
+
 .right-box{
     padding-top: 40px;
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 00px;
     padding-bottom: 30px;
+    margin-right: 0px;
 }
 ::placeholder{
     font-size: 15px;
@@ -36,13 +35,16 @@ a{
     .left-box{
         height: 100px;
         overflow: hidden;
-        margin-left: 00px;
+        margin-left: 10px;
         margin-right: 0px;
         padding-left: 0px;
         padding-right: 00px;
+        margin-top: 10px;
     }
     .right-box{
         margin: 10px;
+        padding-left: 0px;
+
     }
 }
 h2{
