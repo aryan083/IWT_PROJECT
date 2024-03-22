@@ -64,7 +64,7 @@ function select_parent(){
 </div>
 
 <div class="input-group mb-2">
-    <input type="number" class="form-control form-control-lg bg-light fs-6" placeholder="Guardian's Enrollment No." name="gaurd_id" id="gaurd_id">
+    <input type="number" class="form-control form-control-lg bg-light fs-6" placeholder="Child's Enrollment No." name="child_id" id="child_id">
 </div>
 <div class="input-group mb-2">
     <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Email Address" name="email" id="email">
