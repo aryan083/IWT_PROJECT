@@ -1,7 +1,7 @@
 <?php
 session_start(); 
 
-include "dbconnection.php";
+include_once "dbconnection.php";
 
     echo "Connected successfully";
     if($_REQUEST)
