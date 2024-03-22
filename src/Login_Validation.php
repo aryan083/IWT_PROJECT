@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "dbconnection.php";
+require_once "dbconnection.php";
  
 {
     echo "Connected successfully"."<br>";
@@ -28,6 +28,7 @@ include_once "dbconnection.php";
                         else 
                         {
                             echo "Invalid password";
+                            
                         }
                         } 
                         else 
