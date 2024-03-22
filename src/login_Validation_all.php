@@ -1,14 +1,7 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "SPMS";
-
-$conn = mysqli_connect($servername, $username, $password,$dbname);
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-} 
-else 
+session_start();
+include_once "dbconnection.php";
+ 
 {
     echo "Connected successfully"."<br>";
 
@@ -29,7 +22,7 @@ else
                         if (password_verify($password, $studentpassword_hash) && $email == $row['Student_Email']) 
                         { 
                             echo "Login Successful";
-                            header("Location: homepage.html");
+                            header("Location: index.html");
                             exit();
                         }
                         else 
@@ -54,7 +47,7 @@ else
                     if (password_verify($password, $facultypassword_hash) && $email == $row['Faculty_Email']) 
                     { 
                         echo "Login Successful";
-                        header("Location: homepage.html");
+                        header("Location: index.html");
                         exit();
                     }
                     else 
@@ -80,7 +73,7 @@ else
                     if (password_verify($password, $adminpassword_hash) && $email == $row['parent_Email']) 
                     { 
                         echo "Login Successful";
-                        header("Location: homepage.html");
+                        header("Location: index.html");
                         exit();
                     }
                     else 
