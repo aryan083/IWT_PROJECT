@@ -14,7 +14,7 @@ require_once "dbconnection.php";
             if(strpos($email, '@marwadiuniversity.ac.in') !== false)
             {
                 $sql = "SELECT * FROM student
-                        WHERE Student_Email='$email'";
+                        WHERE student_Email='$email'";
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) ==1) {
                     $row = mysqli_fetch_assoc($result);
@@ -37,10 +37,10 @@ require_once "dbconnection.php";
                         }
         }
     
-        else if(strpos($email, '@marwadieducation.edu.in') == false)
+        else if(strpos($email, '@marwadieducation.edu.in') !== false)
         {
             $sql = "SELECT * FROM faculty
-                    WHERE Faculty_Email ='$email'";
+                    WHERE faculty_Email ='$email'";
             $result = mysqli_query($conn, $sql);
             if (mysqli_num_rows($result) ==1) {
                 $row = mysqli_fetch_assoc($result);
