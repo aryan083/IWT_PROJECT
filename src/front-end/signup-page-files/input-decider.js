@@ -3,7 +3,7 @@
 // 1.1 Stduent Regesitation fields 
 // First Name + Last Name 
 // Enrollemnt No
-// GR. No.
+
 // Email
 // Passoword
 // Confirm Password
@@ -17,6 +17,7 @@
 
 // 3.1 Parent Regesitation fields
 // First Name + Last Name
+//child enroll
 // Email
 // passoword
 
