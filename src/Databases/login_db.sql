@@ -45,7 +45,8 @@ CREATE TABLE `parent` (
   `Child Enroll` int(11) NOT NULL,
   `Phone number` int(16) NOT NULL,
   `Email(Optional)` varchar(70) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 
+COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 

@@ -51,12 +51,6 @@ function select_student(){
 document.getElementById("input-group-js-signup").innerHTML = html;
 document.getElementById("dropdown-signup-selector").innerText = "Student";
 
-
-    
-    
-
-
-
 }
 
 function select_parent(){
