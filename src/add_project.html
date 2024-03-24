@@ -6,6 +6,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="front-end/add-project-files/add-project-styles.css">
 </head>
 <body>
     <div class="container d -flex justify-content-center align-items-center min-vh-100">
@@ -13,27 +14,131 @@
         <!-- form with action and method are mentioned here add them accordingly  -->
         <div class="row border rounded-2 p-3 bg-white shadow box-area mb44 mt-4">
             <div>
-                <h1 class="add-project-section">Add Your Project</h1>
-                <br>
+                <h1 class="add-project-section mb-4" style="text-decoration: underline;">Add Your Project</h1>
             </div>
+
+        <!-- for project title description and collaborators details -->
                 <form action="" method = ""> 
 
                     <div class="input-group mb-2">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6 "placeholder="Project Title" name="email" id="email">
+                        <input type="text" class="form-control form-control-lg bg-light fs-6 " placeholder="Project Title" name="Project Title" id="project-title">
                     </div>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6 "placeholder="Project Description" name="email" id="email">
-                        <div class="">hello</div>
+                    <div class="input-group mb-1">
+                        <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Project Description" name="Project Description" id="project-desc"></textarea>
                     </div>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6 "placeholder="Project Title" name="email" id="email">
+                    <br>
+                    <div>
+                        <h5 class="add-project-section fs-5 mb-2">Collaborator's Details</h5>
                     </div>
-
-
+                    <div id = "add-collab-field" class="input-group mb-2">
+                        <div id = "default-add-collab-stuff" class="input-group">                       
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Collaborator's Name" name="Project Title" id="collab-name">
+                                <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-right: 0px;" placeholder="Project Role" name="Project Title" id="collab-role">
+                            </div>
+                        </div>
+                    </div>
 
                 </form>
+
+                    <!-- button for adding collaborators and their respective roles -->
+                    <div>
+                    <button class="btn btn-lg btn-primary w-100 add-collab-button rounded-3 mb-4" onclick="add_collab()" style="margin:1px; margin-left: 0px; margin-right: 0px;" id="add-collab">+</button>
+                    </div>
+
+
+                <form action="" method="">
+                    <div>
+                        <h5 class="add-project-section fs-5 mb-2">Faculty/Mentor's Details</h5>
+                    </div>
+                    <div id = "add-mentor-field" class="input-group mb-2">
+                        <div id = "default-add-mentor-stuff" class="input-group">                       
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Mentor's Name" name="Project Title" id="mentor-name">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                      <!-- button for adding faculty/mentors -->
+                     <div>
+                     <button class="btn btn-lg btn-primary w-100 add-collab-button rounded-3 mb-4" onclick="add_mentor()" style="margin:1px; margin-left: 0px; margin-right: 0px;" id="add-mentor">+</button>
+                     </div>
+
+
+
+
+
+                    <form action="" method="">
+                        <div class="mt-3">                            
+                            <label for="formFileMultiple" class="form-label fs-5">Project Files and Photos (Select all that apply)</label>
+                            <input class="form-control" type="file" id="formFileMultiple" multiple />                       
+                        </div>
+                        <div class="mt-3">                            
+                            <label for="cover-and-image-section" class="form-label fs-5">Cover (Select an image of any file format and a GIF which gives an overview of the project)</label>
+                            <input class="form-control" type="file" id="cover-and-image-section" multiple />                       
+                        </div>
+                        <div>
+                            <div id = "start-end-date group" class="input-group">          
+                                <h5 class="mt-3">Project Starting and Ending Dates</h5>             
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3"  onfocus="(this.type = 'date')"  style="margin: 4px; margin-left: 0px;"  placeholder="Start Date (compulsory)" id="project-start-date" >
+                                    <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3"  onfocus="(this.type = 'date')"  style="margin: 4px; margin-right: 0px;" placeholder="End Date (optional)"id="project-end-date">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div>
+                            <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Status of the project (Ongoing/Completed/Pending)" id="status-bit" >
+                        </div>
+                        <br>
+                        <div class="input-group mb-1">
+                            <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Steps/instructions to build the project"  id="project-steps"></textarea>
+                        </div>
+                        <br>
+                        <div class="input-group mb-1">
+                            <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Outcomes of this project"  id="project-outcomes"></textarea>
+                        </div>
+
+
+
+
+                        
+
+
+
+
+
+                    </form>
+
+
+
+
+
+
+
+
+
+
+
         </div>
         
-    </div>
+
+    <script type="text/javascript" src="front-end/add-project-files/add-project-script.js"></script>
+
 </body>
+
 </html>
+<!-- title x
+contributors x
+faculty x
+status x
+multimedia x
+start date x
+end date x
+domains x
+cover - img + gif x
+steps/instructions to build  x
+outcomes x
+recognition
+external links -->
