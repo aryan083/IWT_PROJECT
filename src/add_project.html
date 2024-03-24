@@ -12,7 +12,7 @@
     <div class="container d -flex justify-content-center align-items-center min-vh-100">
 
         <!-- form with action and method are mentioned here add them accordingly  -->
-        <div class="row border rounded-2 p-3 bg-white shadow box-area mb44 mt-4">
+        <div class="row border rounded-2 p-3 bg-white shadow box-area mb-44 mt-4">
             <div>
                 <h1 class="add-project-section mb-4" style="text-decoration: underline;">Add Your Project</h1>
             </div>
@@ -62,7 +62,7 @@
                 </form>
                       <!-- button for adding faculty/mentors -->
                      <div>
-                     <button class="btn btn-lg btn-primary w-100 add-collab-button rounded-3 mb-4" onclick="add_mentor()" style="margin:1px; margin-left: 0px; margin-right: 0px;" id="add-mentor">+</button>
+                     <button class="btn btn-lg btn-primary w-100 add-collab-button rounded-3 mb-2" onclick="add_mentor()" style="margin:1px; margin-left: 0px; margin-right: 0px;" id="add-mentor">+</button>
                      </div>
 
 
@@ -74,10 +74,12 @@
                             <label for="formFileMultiple" class="form-label fs-5">Project Files and Photos (Select all that apply)</label>
                             <input class="form-control" type="file" id="formFileMultiple" multiple />                       
                         </div>
+                        <br>
                         <div class="mt-3">                            
                             <label for="cover-and-image-section" class="form-label fs-5">Cover (Select an image of any file format and a GIF which gives an overview of the project)</label>
                             <input class="form-control" type="file" id="cover-and-image-section" multiple />                       
                         </div>
+                        <br>
                         <div>
                             <div id = "start-end-date group" class="input-group">          
                                 <h5 class="mt-3">Project Starting and Ending Dates</h5>             
@@ -99,17 +101,34 @@
                         <div class="input-group mb-1">
                             <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Outcomes of this project"  id="project-outcomes"></textarea>
                         </div>
+                        <br>
+                        <div class="input-group mb-1">
+                            <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Recognition/s"  id="project-recognition"></textarea>
+                        </div>
+<br>
 
-
-
+                        <div>
+                            <h5 class="add-link-section fs-5 mb-2">External Links (Githbub Repository's link and other relevant resources related to the project)</h5>
+                        </div>
+                        <div id = "add-link-field" class="input-group mb-2">
+                            <div id = "default-add-link-stuff" class="input-group">                       
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Enter or Paste the link here" id="external-link">
+                                </div>
+                            </div>
+                        </div>
 
                         
-
-
-
-
-
+                 
                     </form>
+
+                    <div>
+                        <button class="btn btn-lg btn-primary w-100 add-collab-button rounded-3 mb-4" onclick="add_link()" style="margin:1px; margin-left: 0px; margin-right: 0px;" id="add-link">+</button>
+                    </div>
+
+
+
+                    
 
 
 
