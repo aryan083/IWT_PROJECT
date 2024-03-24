@@ -24,3 +24,12 @@ function add_mentor(){
     document.getElementById("add-mentor-field").innerHTML = new_html_for_mentor;
 
 }
+function add_link(){
+   
+    var to_be_added_html_link = document.getElementById("default-add-link-stuff").innerHTML;
+    var already_existing_html_link = document.getElementById("add-link-field").innerHTML;
+    
+    new_html_for_link=already_existing_html_link+to_be_added_html_link;
+    document.getElementById("add-link-field").innerHTML = new_html_for_link;
+
+}
