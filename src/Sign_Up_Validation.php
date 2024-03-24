@@ -148,8 +148,8 @@ function addParent($conn, $parent_name, $child_enrollment_no, $parent_email, $pa
     return mysqli_query($conn, $sql);
 }
 
-// Main code execution
-if ($_REQUEST) 
+// Main code block
+if (isset($_REQUEST)) 
     {
 
         $email = $_REQUEST['email'];
