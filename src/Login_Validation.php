@@ -158,10 +158,9 @@ function parentLogin($conn, $email, $password) {
     }
 }
 
-//function to check if user is already logged in
 
-
-if($_REQUEST['login']){
+// main code block for login 
+if(isset($_REQUEST['login'])){
 
     $email = filter_var($_REQUEST['email'], FILTER_SANITIZE_EMAIL);
     $password = $_REQUEST['password'];
