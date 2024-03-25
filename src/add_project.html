@@ -18,13 +18,15 @@
             </div>
 
         <!-- for project title description and collaborators details -->
-                <form action="" method = ""> 
+                <form action="add_project.php" method = "POST"> 
 
                     <div class="input-group mb-2">
-                        <input type="text" class="form-control form-control-lg bg-light fs-6 " placeholder="Project Title" name="Project Title" id="project-title">
+                        <input type="text" class="form-control form-control-lg bg-light fs-6 " placeholder="Project Title" 
+                        name="Project Title" id="project-title">
                     </div>
                     <div class="input-group mb-1">
-                        <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Project Description" name="Project Description" id="project-desc"></textarea>
+                        <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Project Description" 
+                        name="Project Description" id="project-desc"></textarea>
                     </div>
                     <br>
                     <div>
@@ -33,8 +35,10 @@
                     <div id = "add-collab-field" class="input-group mb-2">
                         <div id = "default-add-collab-stuff" class="input-group">                       
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Collaborator's Name" name="Project Title" id="collab-name">
-                                <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-right: 0px;" placeholder="Project Role" name="Project Title" id="collab-role">
+                                <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Collaborator's Name" 
+                                name="CollaboratorName[]" id="collab-name">
+                                <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-right: 0px;" placeholder="Project Role" 
+                                name="CollaboratorRole[]" id="collab-role">
                             </div>
                         </div>
                     </div>
@@ -47,14 +51,15 @@
                     </div>
 
 
-                <form action="" method="">
+                <form action="add_project.php" method="POST">
                     <div>
                         <h5 class="add-project-section fs-5 mb-2">Faculty/Mentor's Details</h5>
                     </div>
                     <div id = "add-mentor-field" class="input-group mb-2">
                         <div id = "default-add-mentor-stuff" class="input-group">                       
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Mentor's Name" name="Project Title" id="mentor-name">
+                                <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Mentor's Name" 
+                                name="MentorName[]" id="mentor-name">
                             </div>
                         </div>
                     </div>
@@ -69,41 +74,47 @@
 
 
 
-                    <form action="" method="">
+                    <form action="add_project.php" method="POST">
                         <div class="mt-3">                            
                             <label for="formFileMultiple" class="form-label fs-5">Project Files and Photos (Select all that apply)</label>
-                            <input class="form-control" type="file" id="formFileMultiple" multiple />                       
+                            <input class="form-control" type="file" id="formFileMultiple" multiple name="MediaFiles[]" />                       
                         </div>
                         <br>
                         <div class="mt-3">                            
                             <label for="cover-and-image-section" class="form-label fs-5">Cover (Select an image of any file format and a GIF which gives an overview of the project)</label>
-                            <input class="form-control" type="file" id="cover-and-image-section" multiple />                       
+                            <input class="form-control" type="file" name="CoverIamge" id="cover-and-image-section" multiple />                       
                         </div>
                         <br>
                         <div>
                             <div id = "start-end-date group" class="input-group">          
                                 <h5 class="mt-3">Project Starting and Ending Dates</h5>             
                                 <div class="input-group">
-                                    <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3"  onfocus="(this.type = 'date')"  style="margin: 4px; margin-left: 0px;"  placeholder="Start Date (compulsory)" id="project-start-date" >
-                                    <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3"  onfocus="(this.type = 'date')"  style="margin: 4px; margin-right: 0px;" placeholder="End Date (optional)"id="project-end-date">
+                                    <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3"  onfocus="(this.type = 'date')"  style="margin: 4px; margin-left: 0px;"  
+                                    placeholder="Start Date (compulsory)" name="StartDate" id="project-start-date" >
+                                    <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3"  onfocus="(this.type = 'date')"  style="margin: 4px; margin-right: 0px;" 
+                                    placeholder="End Date (optional)" name="EndDate" id="project-end-date">
                                 </div>
                             </div>
                         </div>
                         <br>
                         <div>
-                            <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Status of the project (Ongoing/Completed/Pending)" id="status-bit" >
+                            <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  
+                            placeholder="Status of the project (Ongoing/Completed/Pending)" id="status-bit" >
                         </div>
                         <br>
                         <div class="input-group mb-1">
-                            <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Steps/instructions to build the project"  id="project-steps"></textarea>
+                            <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " 
+                            placeholder="Steps/instructions to build the project" name="Instructions"  id="project-steps"></textarea>
                         </div>
                         <br>
                         <div class="input-group mb-1">
-                            <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Outcomes of this project"  id="project-outcomes"></textarea>
+                            <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " 
+                            placeholder="Outcomes of this project" name="Outcomes"  id="project-outcomes"></textarea>
                         </div>
                         <br>
                         <div class="input-group mb-1">
-                            <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Recognition/s"  id="project-recognition"></textarea>
+                            <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " 
+                            placeholder="Recognition/s" name="Recognitions" id="project-recognition"></textarea>
                         </div>
 <br>
 
@@ -113,7 +124,8 @@
                         <div id = "add-link-field" class="input-group mb-2">
                             <div id = "default-add-link-stuff" class="input-group">                       
                                 <div class="input-group">
-                                    <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Enter or Paste the link here" id="external-link">
+                                    <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  
+                                    placeholder="Enter or Paste the link here" name="Links" id="external-link">
                                 </div>
                             </div>
                         </div>
@@ -161,3 +173,10 @@ steps/instructions to build  x
 outcomes x
 recognition
 external links -->
+<!-- 
+diff tabels
+
+contributors 
+faculty
+multimedia
+externalLinks
