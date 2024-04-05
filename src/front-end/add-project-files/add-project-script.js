@@ -1,4 +1,6 @@
-function add_collab(){
+function add_collab(e){
+    e.preventDefault();
+    
     // var student_name  = document.getElementById("collab-name").value;
     // var role  = document.getElementById("collab-role").value;
 
