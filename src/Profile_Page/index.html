@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your theme CSS -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>User Profile Dashboard</h1>
+        </header>
+        <section class="profile-section">
+            <h2>User Profile</h2>
+            <div class="user-details">
+                <div class="profile-image-placeholder"></div> <!-- Placeholder for profile image -->
+                <div class="user-text-details">
+                    <div class="user-detail">
+                        <span id="name">Name</span>
+                    </div>
+                    <div class="user-detail">
+                        <span id="semester">Semester</span>
+                    </div>
+                    <div class="user-detail">
+                        <span id="projects-done">Projects Done</span>
+                    </div>
+                    <div class="user-detail">
+                        <span id="top-recognitions">Top Recognitions</span>
+                    </div>
+                    <div class="user-detail">
+                        <span id="profile-links">Profile Links</span>
+                    </div>
+                    <div class="user-detail">
+                        <span id="bio">Bio</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="analytics-section">
+            <h2>Project Progress Over Time</h2>
+            <canvas id="projectChart"></canvas>
+        </section>
+    </div>
+
+    <script src="script.js"></script> <!-- Include your script file -->
+ 
+</body>
+</html>
