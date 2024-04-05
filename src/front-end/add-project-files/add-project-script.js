@@ -1,37 +1,66 @@
-function add_collab(e){
-    e.preventDefault();
-    
-    // var student_name  = document.getElementById("collab-name").value;
-    // var role  = document.getElementById("collab-role").value;
+// Global variables to keep track of added elements
+var addedCollabCount = 0;
+var addedMentorCount = 0;
+var addedLinkCount = 0;
 
-    // console.log(student_name,role);
-
-    var to_be_added_html_student = document.getElementById("default-add-collab-stuff").innerHTML;
-    var already_existing_html_student = document.getElementById("add-collab-field").innerHTML;
-    
-    new_html_for_collab=already_existing_html_student+to_be_added_html_student;
-    document.getElementById("add-collab-field").innerHTML = new_html_for_collab;
-    // console.log(new_html_for_collab);
+// Function to add collaborator fields
+function add_collab(){
+    var defaultCollabField = document.getElementById("default-add-collab-stuff");
+    var clonedCollabField = defaultCollabField.cloneNode(true); // Clone the default field
+    clearInputValues(clonedCollabField); // Clear input values of the cloned field
+    document.getElementById("add-collab-field").appendChild(clonedCollabField); // Append the cloned field
+    addedCollabCount++; // Increment the added collaborator count
 }
+
+// Function to add mentor fields
 function add_mentor(){
-    // var mentor_name  = document.getElementById("mentor-student_name").value;
-    // var role  = document.getElementById("collab-role").value;
-
-    // console.log(mentor_name_name);
-
-    var to_be_added_html_mentor = document.getElementById("default-add-mentor-stuff").innerHTML;
-    var already_existing_html_mentor = document.getElementById("add-mentor-field").innerHTML;
-    
-    new_html_for_mentor=already_existing_html_mentor+to_be_added_html_mentor;
-    document.getElementById("add-mentor-field").innerHTML = new_html_for_mentor;
-
+    var defaultMentorField = document.getElementById("default-add-mentor-stuff");
+    var clonedMentorField = defaultMentorField.cloneNode(true); // Clone the default field
+    clearInputValues(clonedMentorField); // Clear input values of the cloned field
+    document.getElementById("add-mentor-field").appendChild(clonedMentorField); // Append the cloned field
+    addedMentorCount++; // Increment the added mentor count
 }
-function add_link(){
-   
-    var to_be_added_html_link = document.getElementById("default-add-link-stuff").innerHTML;
-    var already_existing_html_link = document.getElementById("add-link-field").innerHTML;
-    
-    new_html_for_link=already_existing_html_link+to_be_added_html_link;
-    document.getElementById("add-link-field").innerHTML = new_html_for_link;
 
+// Function to add link fields
+function add_link(){
+    var defaultLinkField = document.getElementById("default-add-link-stuff");
+    var clonedLinkField = defaultLinkField.cloneNode(true); // Clone the default field
+    clearInputValues(clonedLinkField); // Clear input values of the cloned field
+    document.getElementById("add-link-field").appendChild(clonedLinkField); // Append the cloned field
+    addedLinkCount++; // Increment the added link count
+}
+
+// Function to clear input values
+function clearInputValues(element) {
+    var inputFields = element.querySelectorAll('input[type="text"], textarea');
+    inputFields.forEach(function(input) {
+        input.value = ''; // Clear input values
+    });
+}
+
+// Function to remove collaborator field
+function remove_collab(){
+    if (addedCollabCount > 0) {
+        var collabFields = document.querySelectorAll('#add-collab-field .input-group');
+        collabFields[addedCollabCount - 1].remove();
+        addedCollabCount--; // Decrement the added collaborator count
+    }
+}
+
+// Function to remove mentor field
+function remove_mentor(){
+    if (addedMentorCount > 0) {
+        var mentorFields = document.querySelectorAll('#add-mentor-field .input-group');
+        mentorFields[addedMentorCount - 1].remove();
+        addedMentorCount--; // Decrement the added mentor count
+    }
+}
+
+// Function to remove link field
+function remove_link(){
+    if (addedLinkCount > 0) {
+        var linkFields = document.querySelectorAll('#add-link-field .input-group');
+        linkFields[addedLinkCount - 1].remove();
+        addedLinkCount--; // Decrement the added link count
+    }
 }
