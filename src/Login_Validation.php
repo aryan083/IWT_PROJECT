@@ -2,194 +2,77 @@
 session_start();
 require_once "dbconnection.php";
 
-
-//function to check if student password is incorrect
-function isStudentPasswordIncorrect($conn, $email, $password) {
-    $sql = "SELECT * FROM spms_student WHERE student_email = '$email' AND student_password = '$password'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        return;
-    }
-    header("Location: login-page.html?error=incorrect_password");//incorrect password
-    exit();
-}
-//function to check if faculty password is incorrect
-function isFacultyPasswordIncorrect($conn, $email, $password) {
-    $sql = "SELECT * FROM spms_faculty WHERE faculty_email = '$email' AND faculty_password = '$password'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        return;
-    }
-    header("Location: login-page.html?error=incorrect_password");//incorrect password
-    exit();
+// Function to validate input data
+function validate_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 
-//function to check if parent password is incorrect
-function isParentPasswordIncorrect($conn, $email, $password) {
-    $sql = "SELECT * FROM spms_parent WHERE parent_email = '$email' AND parent_password = '$password'";
+// Function to check if the user exists in the database
+function isUserExist($conn, $email, $table) {
+    $sql = "SELECT * FROM $table WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) 
-    {
-        return;
-    }
-    header("Location: login-page.html?error=incorrect_password");//incorrect password
-    exit();
+    return mysqli_num_rows($result) > 0;
 }
 
-
-//function to check if student email is incorrect
-function isStudentEmailIncorrect($conn, $email) {
-    $sql = "SELECT * FROM spms_student WHERE student_email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        return;
-    }
-    header("Location: login-page.html?error=incorrect_email");//incorrect email
-    exit();
-}
-
-//function to check if faculty email is incorrect
-function isFacultyEmailIncorrect($conn, $email) {
-    $sql = "SELECT * FROM spms_student WHERE student_email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        return;
-    }
-    $sql = "SELECT * FROM spms_faculty WHERE faculty_email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        return;
-    }
-    header("Location: login-page.html?error=incorrect_email");//incorrect email
-    exit();
-}
-
-//function to check if parent email is incorrect
-function isParentEmailIncorrect($conn, $email) {
-    $sql = "SELECT * FROM spms_parent WHERE parent_email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        return;
-    }
-    header("Location: login-page.html?error=incorrect_email");//incorrect email
-    exit();
-}
-
-
-//function to check if student doesn't exist
-function isStudentExist($conn, $email) {
-    $sql = "SELECT * FROM spms_student WHERE student_email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        return;
-    }
-    header("Location: login-page.html?error=user_doesnt_exist");//user doesn't exist
-    exit();
-}
-
-
-//function to check if faculty doesn't exist
-function isFacultyExist($conn, $email) {
-    $sql = "SELECT * FROM spms_student WHERE student_email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        return;
-    }
-    $sql = "SELECT * FROM spms_faculty WHERE faculty_email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        return;
-    }
-    header("Location: login-page.html?error=user_doesnt_exist");//user doesn't exist
-    exit();
-}
-
-//function to check if parent doesn't exist
-function isParentExist($conn, $email) {
-    $sql = "SELECT * FROM spms_parent WHERE parent_email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        return;
-    }
-    header("Location: login-page.html?error=user_doesnt_exist");//user doesn't exist
-    exit();
-}
-
-//function for student login
-function studentLogin($conn, $email, $password) {
-    $sql = "SELECT * FROM spms_student WHERE student_email = '$email' AND student_password = '$password'";
+// Function to perform login
+function loginUser($conn, $email, $password, $table) {
+    $sql = "SELECT * FROM $table WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        $_SESSION['student_name']=$row['student_name'];
-        $_SESSION['enrollment_no']=$row['enrollment_no'];
-
-        header("Location: index.html");
+        if(password_verify($password, $row['password'])) {
+            $_SESSION['email'] = $email;
+            setcookie('email', $email, time() + (86400), "/"); // Cookie set to expire in 30 days
+            
+            header("Location: index.html");
+            exit();
+        } else {
+            header("Location: login-page.html?error=incorrect_password");
+            exit();
+        }
+    } else {
+        header("Location: login-page.html?error=user_not_found");
         exit();
     }
 }
 
-//function for faculty login
-function facultyLogin($conn, $email, $password) {
-    $sql = "SELECT * FROM spms_faculty WHERE faculty_email = '$email' AND faculty_password = '$password'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['faculty_name']=$row['faculty_name'];
-        $_SESSION['faculty_id']=$row['faculty_id'];
+// Main code block for login 
+if(isset($_POST['login'])) {
+    $email = validate_input($_POST['email']);
+    $password = $_POST['password'];
 
-        header("Location: index.html");
-        exit();
+    // Check if the user is a student
+    if(strpos($email, '@marwadiuniversity.ac.in') !== false) {
+        $table = 'spms_student';
+        if(isUserExist($conn, $email, $table)) {
+            loginUser($conn, $email, $password, $table);
+        } else {
+            header("Location: login-page.html?error=user_not_found");
+            exit();
+        }
+    } 
+    // Check if the user is a faculty
+    elseif(strpos($email, '@marwadieducation.edu.in') !== false) {
+        $table = 'spms_faculty';
+        if(isUserExist($conn, $email, $table)) {
+            loginUser($conn, $email, $password, $table);
+        } else {
+            header("Location: login-page.html?error=user_not_found");
+            exit();
+        }
+    } 
+    // Check if the user is a parent
+    else {
+        $table = 'spms_parent';
+        if(isUserExist($conn, $email, $table)) {
+            loginUser($conn, $email, $password, $table);
+        } else {
+            header("Location: login-page.html?error=user_not_found");
+            exit();
+        }
     }
 }
 
-//function for parent login
-
-function parentLogin($conn, $email, $password) {
-    $sql = "SELECT * FROM spms_parent WHERE parent_email = '$email' AND parent_password = '$password'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['parent_name']=$row['parent_name'];
-        $_SESSION['child_enrollment_no']=$row['child_enrollment_no'];
-
-        header("Location: index.html");
-        exit();
-    }
-}
-
-
-// main code block for login 
-if(isset($_REQUEST['login'])){
-
-    $email = filter_var($_REQUEST['email'], FILTER_SANITIZE_EMAIL);
-    $password = $_REQUEST['password'];
-
-
-
-    if(strpos($email, '@marwadiuniversity.ac.in') !== false)
-    {
-        isStudentExist($conn, $email);
-        isStudentEmailIncorrect($conn, $email);
-        isStudentPasswordIncorrect($conn, $email, $password);
-        studentLogin($conn, $email, $password);
-    }
-    elseif(strpos($email, '@marwadieducation.edu.in') !== false)
-    {
-        isFacultyExist($conn, $email);
-        isFacultyEmailIncorrect($conn, $email);
-        isFacultyPasswordIncorrect($conn, $email, $password);
-        facultyLogin($conn, $email, $password);
-    }
-    else
-    {
-        isParentExist($conn, $email);
-        isParentEmailIncorrect($conn, $email);
-        isParentPasswordIncorrect($conn, $email, $password);
-        parentLogin($conn, $email, $password);
-    }
-
-    header("Location: login-page.html?error=login_failed");//login failed
-    exit();
-
-}

@@ -1,200 +1,90 @@
-<?php
+`<?php
 require_once 'dbconnection.php';
 
-// Function to check if a student already exists in the database
-function isStudentExists($conn, $enrollment_no, $student_email, $student_personal_email, $student_phone_no) {
-    $sql = "SELECT * FROM spms_student WHERE student_enrollment_number = '$enrollment_no'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) 
-    {
-        header("Location: signup-page.html?error=student_enrollment_exists");//enollment number already exists in database
-        exit();
-    }
-    $sql = "SELECT * FROM spms_student WHERE OR student_email = '$student_email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) 
-    {
-        header("Location: signup-page.html?error=student_email_exists");// collage email already exists in database 
-        exit();
-    }
-
-    $sql = "SELECT * FROM spms_student WHERE student_personal_email = '$student_personal_email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) 
-    {
-        header("Location: signup-page.html?error=student_personal_email_exists");// personal email already exists in database
-        exit();
-    }
-    
-    $sql = "SELECT * FROM spms_student WHERE student_phone_no = '$student_phone_no'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) 
-    {
-        header("Location: signup-page.html?error=student_phone_no_exists");// phone number already exists in database
-        exit();
-    }
-
-    return ;
+function validate_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 
-// Function to check if a faculty already exists in the database
-function isFacultyExists($conn, $faculty_id, $faculty_email) {
-    $sql = "SELECT * FROM spms_faculty WHERE faculty_id = '$faculty_id'";
+function check_unique($conn, $table, $column, $value) {
+    $sql = "SELECT * FROM $table WHERE $column = '$value'";
     $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) 
-    {
-        header("Location: signup-page.html?error=faculty_id_exists");//faculty id already exists in database
-        exit();
-    }
-    $sql = "SELECT * FROM spms_faculty WHERE faculty_email = '$faculty_email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) 
-    {
-        header("Location: signup-page.html?error=faculty_email_exists");//faculty email already exists in database
-        exit();
-    }
-
-    return;
+    return mysqli_num_rows($result) > 0;
 }
 
-// Function to check if a parent already exists in the database
-function isParentExists($conn, $child_enrollment_no, $parent_email, $parent_phone_no) {
-    $sql = "SELECT * FROM spms_parent WHERE child_enrollement_number = '$child_enrollment_no'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) 
-    {
-        header("Location: signup-page.html?error=child_enrollment_exists");//child enrollment number already exists in database
-        exit();
-    }
-    $sql = "SELECT * FROM spms_parent WHERE parent_email = '$parent_email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) 
-    {
-        header("Location: signup-page.html?error=parent_email_exists");//parent email already exists in database
-        exit();
-    }
-    $sql = "SELECT * FROM spms_parent WHERE parent_phone_number = '$parent_phone_no'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) 
-    {
-        header("Location: signup-page.html?error=parent_phone_no_exists");//parent phone number already exists in database
-        exit();
-    }
+if(isset($POST['submit'])){
 
-    return;
-}
+    if(isset($_POST['studentEmail'])){
+        $studentName=validate_input($_POST['full_name']);
+        $studentEnrollemntNumber=validate_input($_POST['enr_no']);
+        $studentEmail=validate_input($_POST['email']);
+        $studentPassword=$_POST['password'];
+        $hashedStudentPassword = password_hash($studentPassword, PASSWORD_DEFAULT);
 
-// Function to insert a new student record
-function addStudent($conn, $student_name, $enrollment_no, $student_email, $student_personal_email, $student_phone_no, $student_password) {
-    
-    isStudentExists($conn, $enrollment_no, $student_email, $student_personal_email, $student_phone_no);
-  
-    // Insert new record
-    $hashedpassword = password_hash($student_password, PASSWORD_DEFAULT);
-    $student_signup = date("Y-m-d H:i:s");
-
-    $sql = "INSERT INTO spms_student
-            (student_name, student_enrollment_number,
-            student_email, student_personal_email,
-            student_phone_no, student_password,
-            student_sign_up)
-            VALUES
-            ('$student_name', '$enrollment_no',
-            '$student_email', '$student_personal_email',
-            '$student_phone_no', '$hashedpassword',
-            '$student_signup')";
-
-    return mysqli_query($conn, $sql);
-}
-
-// Function to insert a new faculty record
-function addFaculty($conn, $faculty_name, $faculty_id, $faculty_email, $faculty_password) {
-    
-    isFacultyExists($conn, $faculty_id, $faculty_email);
-
-    // Insert new record
-    $hashedpassword = password_hash($faculty_password, PASSWORD_DEFAULT);
-    $faculty_signup = date("Y-m-d H:i:s");
-
-    $sql = "INSERT INTO spms_faculty
-            (faculty_name, faculty_id,
-            faculty_email, faculty_password,
-            faculty_sign_up)
-            VALUES
-            ('$faculty_name', '$faculty_id',
-            '$faculty_email', '$hashedpassword',
-            '$faculty_signup')";
-
-    return mysqli_query($conn, $sql);
-}
-
-// Function to insert a new parent record
-function addParent($conn, $parent_name, $child_enrollment_no, $parent_email, $parent_phone_no, $parent_password) {
-    isParentExists($conn, $child_enrollment_no, $parent_email, $parent_phone_no);
-
-    // Insert new record
-    $hashedpassword = password_hash($parent_password, PASSWORD_DEFAULT);
-    $parent_signup = date("Y-m-d H:i:s");
-
-    $sql = "INSERT INTO spms_parent
-            (parent_name, child_enrollement_number,
-            parent_email, parent_phone_number, parent_password,
-            parent_sign_up)
-            VALUES
-            ('$parent_name', '$child_enrollment_no',
-            '$parent_email', '$parent_phone_no', '$hashedpassword',
-            '$parent_signup')";
-
-    return mysqli_query($conn, $sql);
-}
-
-// Main code block
-if (isset($_REQUEST)) 
-    {
-
-        $email = $_REQUEST['email'];
-
-        if (strpos($email, '@marwadiuniversity.ac.in') !== false)
-        {
-
-            $student_name = filter_var($_REQUEST['full_name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $student_enrollment_no = filter_var($_REQUEST['enr_no'], FILTER_SANITIZE_NUMBER_INT);
-            $student_email = filter_var($_REQUEST['email'], FILTER_SANITIZE_EMAIL);
-            $student_personal_email = filter_var($_REQUEST['personal_email'], FILTER_SANITIZE_EMAIL);
-            $student_phone_no = filter_var($_REQUEST['phone_no'], FILTER_SANITIZE_NUMBER_INT);
-            $student_password = $_REQUEST['password'];
-
-            $result = addStudent($conn, $student_name, $enrollment_no, $student_email, $student_personal_email, $student_phone_no, $student_password);
+        if(check_unique($conn, 'spms_student', 'student_email', $studentEmail) || 
+           check_unique($conn, 'spms_student', 'student_enrollment_number', $studentEnrollemntNumber)) {
+            header("Location: sign-up.html?error=email_or_enrollment_number_already_exists");
+            exit();
         }
 
-        elseif (strpos($email, '@marwadieducation.edu.in') !== false)
-        {
-            $parent_name = filter_var($_REQUEST['full_name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $child_enrollment_no = filter_var($_REQUEST['child_id'], FILTER_SANITIZE_NUMBER_INT);
-            $parent_email = filter_var($_REQUEST['email'], FILTER_SANITIZE_EMAIL);
-            $parent_phone_no = filter_var($_REQUEST['phone_no'], FILTER_SANITIZE_NUMBER_INT);
-            $parent_password = $_REQUEST['password'];
+        $sql = "INSERT INTO spms_student
+        (student_name, student_enrollment_number, student_email, student_password) VALUES 
+        ('$studentName', '$studentEnrollemntNumber', '$studentEmail', '$hashedStudentPassword')";
+        mysqli_query($conn, $sql);
+        $_SESSION['studentEmail'] = $studentEmail;
+        setcookie('studentEmail', $studentEmail, time() + (86400), "/"); // 86400 = 1 day
+        header("Location: login-page.html?success=student_registered");
+        
+        exit();
 
-            $result = addFaculty($conn, $faculty_name, $faculty_id, $faculty_email, $faculty_password);
-        } 
+    }else if(isset($_POST['facultyEmail'])){
+        $facultyName=validate_input($_POST['full_name']);
+        $facultyID=validate_input($_POST['fac_id']);
+        $facultyEmail=validate_input($_POST['email']);
+        $facultyPassword=$_POST['password'];
+        $hashedFacultyPassword = password_hash($facultyPassword, PASSWORD_DEFAULT);
 
-        else
-        {
-
-            $faculty_name = filter_input($_REQUEST['full_name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $faculty_id = filter_var($_REQUEST['fac_id'], FILTER_SANITIZE_NUMBER_INT);
-            $faculty_email = filter_var($_REQUEST['email'], FILTER_SANITIZE_EMAIL);
-            $faculty_password = $_REQUEST['password'];
-
-            $result = addParent($conn, $parent_name, $child_enrollment_no, $parent_email, $parent_phone_no, $parent_password);
+        if(check_unique($conn, 'spms_faculty', 'faculty_email', $facultyEmail) || 
+           check_unique($conn, 'spms_faculty', 'faculty_id', $facultyID)) {
+            header("Location: sign-up.html?error=email_or_faculty_id_already_exists");
+            exit();
         }
 
-            if ($result) 
-            {
-                echo "New record created successfully";
-            }
-            else 
-            {
-                echo "Error: Unable to create record";
-            }
+        $sql = "INSERT INTO spms_faculty 
+        (faculty_name, faculty_id, faculty_email, faculty_password) VALUES 
+        ('$facultyName', '$facultyID', '$facultyEmail', '$hashedFacultyPassword')";
+        mysqli_query($conn, $sql);
+        
+        $_SESSION['facultyEmail'] = $facultyEmail;
+        setcookie('facultyEmail', $facultyEmail, time() + (86400), "/"); // 86400 = 1 day
+
+        header("Location: login-page.html?success=faculty_registered");
+        exit();
+
+    }else if(isset($_POST['parentEmail'])){
+        $parentName=validate_input($_POST["full_name"]);
+        $ChildsEnrollID=validate_input($_POST["child_id"]);
+        $parentEmail=validate_input($_POST["email"]);
+        $parentPassword=$_POST["password"];
+        $hashedParentPassword = password_hash($parentPassword, PASSWORD_DEFAULT);
+
+        if(check_unique($conn, 'spms_parent', 'parent_email', $parentEmail) || 
+           check_unique($conn, 'spms_parent', 'child_enrollment_id', $ChildsEnrollID)) {
+            header("Location: sign-up.html?error=email_or_child_id_already_exists");
+            exit();
+        }
+
+        $sql = "INSERT INTO spms_parent 
+        (parent_name, child_enrollment_id, parent_email, parent_password) VALUES 
+        ('$parentName', '$ChildsEnrollID', '$parentEmail', '$hashedParentPassword')";
+        mysqli_query($conn, $sql);
+       
+        $_SESSION['parentEmail'] = $parentEmail;
+        setcookie('parentEmail', $parentEmail, time() + (86400), "/"); // 86400 = 1 day
+
+        header("Location: login-page.html?success=parent_registered");
+        exit();
+    }
 }
