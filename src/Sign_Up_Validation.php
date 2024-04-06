@@ -8,6 +8,24 @@ function validate_input($data) {
     return $data;
 }
 
+if(isset($_POST['logout'])) {
+    // Unset all of the session variables
+    $_SESSION = array();
+
+    // Destroy the session
+    session_destroy();
+
+    // Clear any existing cookies
+    setcookie('studentEmail', '', time() - 3600, '/');
+    setcookie('facultyEmail', '', time() - 3600, '/');
+    setcookie('parentEmail', '', time() - 3600, '/');
+
+    // Redirect to the login page
+    header("Location: login-page.html");
+    exit();
+}
+
+
 function check_unique($conn, $table, $column, $value) {
     $sql = "SELECT * FROM $table WHERE $column = '$value'";
     $result = mysqli_query($conn, $sql);
