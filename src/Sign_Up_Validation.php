@@ -1,6 +1,20 @@
 `<?php
 require_once 'dbconnection.php';
 
+// Check if sessions are active
+$session_status = session_status();
+$session_active = $session_status === PHP_SESSION_ACTIVE;
+
+// Check if cookies are set
+$student_cookie_active = isset($_COOKIE['studentEmail']);
+$faculty_cookie_active = isset($_COOKIE['facultyEmail']);
+$parent_cookie_active = isset($_COOKIE['parentEmail']);
+
+echo "Session Active: " . ($session_active ? "Yes" : "No") . "<br>";
+echo "Student Cookie Active: " . ($student_cookie_active ? "Yes" : "No") . "<br>";
+echo "Faculty Cookie Active: " . ($faculty_cookie_active ? "Yes" : "No") . "<br>";
+echo "Parent Cookie Active: " . ($parent_cookie_active ? "Yes" : "No") . "<br>";
+
 function validate_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
