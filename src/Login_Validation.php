@@ -1,38 +1,6 @@
 <?php
-session_start();
+
 require_once "dbconnection.php";
-
-// Check if sessions are active
-$session_status = session_status();
-$session_active = $session_status === PHP_SESSION_ACTIVE;
-
-// Check if cookies are set
-$student_cookie_active = isset($_COOKIE['studentEmail']);
-$faculty_cookie_active = isset($_COOKIE['facultyEmail']);
-$parent_cookie_active = isset($_COOKIE['parentEmail']);
-
-echo "Session Active: " . ($session_active ? "Yes" : "No") . "<br>";
-echo "Student Cookie Active: " . ($student_cookie_active ? "Yes" : "No") . "<br>";
-echo "Faculty Cookie Active: " . ($faculty_cookie_active ? "Yes" : "No") . "<br>";
-echo "Parent Cookie Active: " . ($parent_cookie_active ? "Yes" : "No") . "<br>";
-
-
-if(isset($_POST['logout'])) {
-    // Unset all of the session variables
-    $_SESSION = array();
-
-    // Destroy the session
-    session_destroy();
-
-    // Clear any existing cookies
-    setcookie('studentEmail', '', time() - 3600, '/');
-    setcookie('facultyEmail', '', time() - 3600, '/');
-    setcookie('parentEmail', '', time() - 3600, '/');
-
-    // Redirect to the login page
-    header("Location: login-page.html");
-    exit();
-}
 
 // Function to validate input data
 function validate_input($data) {
@@ -42,23 +10,20 @@ function validate_input($data) {
     return $data;
 }
 
-// Function to check if the user exists in the database
+// Function to check if user does't exists
 function isUserExist($conn, $email, $table) {
     $sql = "SELECT * FROM $table WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
     return mysqli_num_rows($result) > 0;
 }
 
-// Function to perform login
 function loginUser($conn, $email, $password, $table) {
     $sql = "SELECT * FROM $table WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        if(password_verify($password, $row['password'])) {
-            $_SESSION['email'] = $email;
-            setcookie('email', $email, time() + (86400), "/"); // Cookie set to expire in 30 days
-            
+        if(password_verify($password, $row['password'])==true) {
+            echo "Login successful";
             header("Location: index.html");
             exit();
         } else {
@@ -72,7 +37,7 @@ function loginUser($conn, $email, $password, $table) {
 }
 
 // Main code block for login 
-if(isset($_POST['login'])) {
+if(isset($_POST['submit'])) {
     $email = validate_input($_POST['email']);
     $password = $_POST['password'];
 
@@ -107,4 +72,3 @@ if(isset($_POST['login'])) {
         }
     }
 }
-
