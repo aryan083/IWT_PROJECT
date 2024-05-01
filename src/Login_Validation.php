@@ -2,67 +2,42 @@
 
 require_once "dbconnection.php";
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
 
+    if ($role == 'student') {
+        $table = 'spms_student';
+        $password_column = 'student_password';
+    } else if ($role == 'faculty') {
+        $table = 'spms_faculty';
+        $password_column = 'faculty_password';
+    } else {
+        $table = 'spms_parent';
+        $password_column = 'parent_password';
+    }
 
-// Function to check if user does't exists
-function isUserExist($conn, $email, $table) {
     $sql = "SELECT * FROM $table WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
-    return mysqli_num_rows($result) > 0;
-}
 
-function loginUser($conn, $email, $password, $table) {
-    $sql = "SELECT * FROM $table WHERE email = '$email'";
-    $result = mysqli_query($conn, $sql);
-    if(mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
-        if(password_verify($password, $row['password'])==true) {
-            echo "Login successful";
-            header("Location: index.html");
+        if (password_verify($password, $row[$password_column])) {
+            session_start();
+            $_SESSION['email'] = $email;
+            $_SESSION['role'] = $role;
+            header("Location: dashboard.php");
             exit();
         } else {
-            header("Location: login-page.html?error=incorrect_password");
+            header("Location: login-page.html?error=invalid_password");
             exit();
         }
     } else {
-        header("Location: login-page.html?error=user_not_found");
+        header("Location: login-page.html?error=invalid_email");
         exit();
     }
-}
-
-// Main code block for login 
-if(isset($_POST['submit'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Check if the user is a student
-    if(strpos($email, '@marwadiuniversity.ac.in') !== false) {
-        $table = 'spms_student';
-        if(isUserExist($conn, $email, $table)) {
-            loginUser($conn, $email, $password, $table);
-        } else {
-            header("Location: login-page.html?error=user_not_found");
-            exit();
-        }
-    } 
-    // Check if the user is a faculty
-    elseif(strpos($email, '@marwadieducation.edu.in') !== false) {
-        $table = 'spms_faculty';
-        if(isUserExist($conn, $email, $table)) {
-            loginUser($conn, $email, $password, $table);
-        } else {
-            header("Location: login-page.html?error=user_not_found");
-            exit();
-        }
-    } 
-    // Check if the user is a parent
-    else {
-        $table = 'spms_parent';
-        if(isUserExist($conn, $email, $table)) {
-            loginUser($conn, $email, $password, $table);
-        } else {
-            header("Location: login-page.html?error=user_not_found");
-            exit();
-        }
-    }
+} else {
+    header("Location: login-page.html");
+    exit();
 }

@@ -33,6 +33,11 @@
                             <div class="input-group mb-3">
                                 <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password" name="password" id="password">
                             </div>
+
+                            <div class="input-group mb-3" id="setRole">
+                                <input type="hidden" id="Role" name="role">
+                            </div>
+                            
                             <div class="input-group mb-5 d-flex justify-content-between">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="form-check">
@@ -72,6 +77,24 @@
 
             return true; // Form will be submitted if all validations pass
         }
+
+        function setRole() {
+            mail=document.getElementById('email').value
+            if( mail.includes("marwadiuniversity.ac.in"))
+            document.getElementById('Role').value = "student";
+            else if (mail.includes(".edu.in"))
+            document.getElementById('Role').value = "faculty";
+            else
+            document.getElementById('Role').value = "parent";
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function() {
+            setRole();
+        });
+
+
+
+
     </script>
 </body>
 </html>

@@ -48,7 +48,7 @@ function isUserExist($conn, $email, $table){
         $faculty_name = $_POST['faculty_full_name'];
         $faculty_id_Employee_code = $_POST['fac_id'];
         $faculty_email = $_POST['faculty_email'];
-        $faculty_password = password_hash($_POST['faculty_password'], PASSWORD_DEFAULT);
+        $faculty_password = password_hash($_POST['faculty_password'], PASSWORD_BCRYPT);
 
         if(isUserExist($conn, $faculty_email, $table)){
             header("Location: sign-up.html?error=user_already_exists");
