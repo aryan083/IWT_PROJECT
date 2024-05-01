@@ -58,7 +58,7 @@ function displayMedia($projectId, $mediaType)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Library</title>
+    <title>Project Details</title>
     <style>
         /* Style for media container */
         .media-container {
@@ -74,73 +74,50 @@ function displayMedia($projectId, $mediaType)
             display: block;
             margin-bottom: 10px;
         }
-        /* Style for project details */
-        .project-details {
-            margin-bottom: 20px;
-        }
-        /* Style for contributors and mentors */
-        .contributors-mentors {
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
-    <h1>Project Library</h1>
+    <h1>Project Details</h1>
     <?php
-    // Fetch all projects from the database
-    $query = "SELECT * FROM spms_projects";
-    $result = $conn->query($query);
+    // Check if the project ID is provided in the URL
+   
+    if (isset($_GET['project_id'])) {
+        $projectId = $_GET['project_id'];
 
-    // Check if there are any projects
-    if ($result->num_rows > 0) {
-        // Output project details and media files
-        while ($row = $result->fetch_assoc()) {
+        // Fetch project details from the database
+        $query = "SELECT * FROM spms_projects WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $projectId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Check if the project exists
+        if ($result->num_rows > 0) {
+            $project = $result->fetch_assoc();
             echo '<div class="project-details">';
-            echo '<h2>' . $row['title'] . '</h2>';
-            echo '<p>Description: ' . $row['description'] . '</p>';
-            echo '<p>Start Date: ' . $row['start_date'] . '</p>';
-            echo '<p>End Date: ' . $row['end_date'] . '</p>';
-            echo '<p>Status: ' . $row['status'] . '</p>';
+            echo '<h2>' . $project['title'] . '</h2>';
+            echo '<p>Description: ' . $project['description'] . '</p>';
+            echo '<p>Start Date: ' . $project['start_date'] . '</p>';
+            echo '<p>End Date: ' . $project['end_date'] . '</p>';
+            echo '<p>Status: ' . $project['status'] . '</p>';
             echo '<h3>Images</h3>';
             echo '<div class="media-container">';
-            displayMedia($row['id'], 'images');
+            displayMedia($projectId, 'images');
             echo '</div>';
             echo '<h3>Videos</h3>';
             echo '<div class="media-container">';
-            displayMedia($row['id'], 'videos');
+            displayMedia($projectId, 'videos');
             echo '</div>';
             echo '<h3>Documents</h3>';
             echo '<div class="media-container">';
-            displayMedia($row['id'], 'documents');
-            echo '</div>';
-            echo '<div class="contributors-mentors">';
-            // Fetch contributors for this project
-            $contributorsQuery = "SELECT name, role FROM projects_collaborators WHERE project_id = " . $row['id'];
-            $contributorsResult = $conn->query($contributorsQuery);
-            if ($contributorsResult->num_rows > 0) {
-                echo '<h3>Contributors</h3>';
-                echo '<ul>';
-                while ($contributor = $contributorsResult->fetch_assoc()) {
-                    echo '<li>' . $contributor['name'] . ' - ' . $contributor['role'] . '</li>';
-                }
-                echo '</ul>';
-            }
-            // Fetch mentors for this project
-            $mentorsQuery = "SELECT name FROM projects_faculty WHERE project_id = " . $row['id'];
-            $mentorsResult = $conn->query($mentorsQuery);
-            if ($mentorsResult->num_rows > 0) {
-                echo '<h3>Mentors</h3>';
-                echo '<ul>';
-                while ($mentor = $mentorsResult->fetch_assoc()) {
-                    echo '<li>' . $mentor['name'] . '</li>';
-                }
-                echo '</ul>';
-            }
+            displayMedia($projectId, 'documents');
             echo '</div>';
             echo '</div>';
+        } else {
+            echo "Project not found.";
         }
     } else {
-        echo "No projects found.";
+        echo "Project ID is not provided.";
     }
     ?>
 </body>

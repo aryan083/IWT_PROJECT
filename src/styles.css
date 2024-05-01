@@ -1,0 +1,35 @@
+/* Basic Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.projects {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+.project {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.project a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.thumbnail {
+    width: 100%;
+    height: auto;
+}
+
+/* Additional Styles (add as needed) */
