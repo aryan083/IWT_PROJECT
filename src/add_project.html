@@ -18,15 +18,15 @@
             </div>
 
         <!-- for project title description and collaborators details -->
-                <form action="add_project.php" method = "POST"> 
+                <form action="add_project.php" method = "POST" enctype="multipart/form-data"> 
 
                     <div class="input-group mb-2">
                         <input type="text" class="form-control form-control-lg bg-light fs-6 " placeholder="Project Title" 
-                        name="Project Title" id="project-title">
+                        name="ProjectTitle" id="project-title">
                     </div>
                     <div class="input-group mb-1">
                         <textarea type="textarea" class="form-control form-control-lg bg-light fs-6 " placeholder="Project Description" 
-                        name="Project Description" id="project-desc"></textarea>
+                        name="ProjectDescription" id="project-desc"></textarea>
                     </div>
                     <br>
                     <div>
@@ -37,8 +37,14 @@
                             <div class="input-group">
                                 <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  placeholder="Collaborator's Name" 
                                 name="CollaboratorName[]" id="collab-name">
-                                <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-right: 0px;" placeholder="Project Role" 
+                                <select class="form-select form-select-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-right: 0px;" 
                                 name="CollaboratorRole[]" id="collab-role">
+                                <option value="Designer">Designer</option>
+                                <option value="Developer">Developer</option>
+                                <option value="Tester">Tester</option>
+                                <option value="Leader">Leader</option>
+                                <!-- Add more options as needed -->
+                            </select>
                             </div>
                         </div>
                     </div>
@@ -74,20 +80,16 @@
                         <input type="button" class="form-control form-control-lg btn btn-primary  fs-6 rounded-3 "  onclick="add_mentor()" style="margin:1px; margin-left: 0px; margin-right: 4px;" id="add-mentor" value="+">
                         <input type="button" class="form-control form-control-lg btn btn-danger rounded-3 " onclick="remove_mentor()" style="margin:1px; margin-left: 4px; margin-right: 0px;" id="add-mentor" value="-">
                     </div>
-
-
-
-
-
+                    <br>
                        <div class="mt-3">                            
                             <label for="formFileMultiple" class="form-label fs-5">Project Files and Photos (Select all that apply)</label>
-                            <input class="form-control" type="file" id="formFileMultiple" multiple name="MediaFiles[]" />                       
+                            <input class="form-control" type="file" id="formFileMultiple" name="MediaFiles[]" multiple />                       
                         </div>
                         <br>
-                        <div class="mt-3">                            
+                        <!-- <div class="mt-3">                            
                             <label for="cover-and-image-section" class="form-label fs-5">Cover (Select an image of any file format and a GIF which gives an overview of the project)</label>
                             <input class="form-control" type="file" name="CoverIamge" id="cover-and-image-section" multiple />                       
-                        </div>
+                        </div> -->
                         <br>
                         <div>
                             <div id = "start-end-date group" class="input-group">          
@@ -102,8 +104,12 @@
                         </div>
                         <br>
                         <div>
-                            <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  
-                            placeholder="Status of the project (Ongoing/Completed/Pending)" id="status-bit" >
+                            <select class="form-select form-select-lg bg-light fs-6 rounded-3" 
+                            name="Status" style="margin: 4px; margin-right: 0px;" id="status-bit">
+                                <option value="Ongoing">Ongoing</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Pending">Pending</option>
+                                
                         </div>
                         <br>
                         <div class="input-group mb-1">
@@ -129,13 +135,11 @@
                             <div id = "default-add-link-stuff" class="input-group">                       
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-lg bg-light fs-6 rounded-3" style="margin: 4px; margin-left: 0px;"  
-                                    placeholder="Enter or Paste the link here" name="Links" id="external-link">
+                                    placeholder="Enter or Paste the link here" name="Links[]" id="external-link">
                                 </div>
                             </div>
                         </div>
 
-                        
-                 
                     <div class="input-group">
                         <input type="button" class="form-control form-control-lg btn btn-primary  fs-6 rounded-3 "  onclick="add_link()" style="margin:1px; margin-left: 0px; margin-right: 4px;" id="add-mentor" value="+">
                         <input type="button" class="form-control form-control-lg btn btn-danger rounded-3 " onclick="remove_link()" style="margin:1px; margin-left: 4px; margin-right: 0px;" id="add-mentor" value="-">

@@ -2,13 +2,7 @@
 
 require_once "dbconnection.php";
 
-// Function to validate input data
-function validate_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+
 
 // Function to check if user does't exists
 function isUserExist($conn, $email, $table) {
@@ -38,7 +32,7 @@ function loginUser($conn, $email, $password, $table) {
 
 // Main code block for login 
 if(isset($_POST['submit'])) {
-    $email = validate_input($_POST['email']);
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
     // Check if the user is a student

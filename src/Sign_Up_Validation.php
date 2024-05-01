@@ -1,12 +1,6 @@
 `<?php
 require_once 'dbconnection.php';
 
-function validate_input($data){
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
 
 function isUserExist($conn, $email, $table){
     $sql = "SELECT * FROM $table WHERE email = '$email'";
@@ -14,14 +8,13 @@ function isUserExist($conn, $email, $table){
     return mysqli_num_rows($result) > 0;
 }
 
-    
   
     if($_POST['role']=='student'){
         $table = 'spms_student';
 
-        $student_name = validate_input($_POST['student_full_name']);
-        $student_enrollment_number = validate_input($_POST['student_enr_no']);
-        $student_email = validate_input($_POST['student_email']);
+        $student_name = $_POST['student_full_name'];
+        $student_enrollment_number = $_POST['student_enr_no'];
+        $student_email = $_POST['student_email'];
         $student_password = password_hash($_POST['student_password'], PASSWORD_DEFAULT);
 
         echo $student_name;
@@ -52,9 +45,9 @@ function isUserExist($conn, $email, $table){
     else if($_POST['role']=='faculty'){
         $table = 'spms_faculty';
 
-        $faculty_name = validate_input($_POST['faculty_full_name']);
-        $faculty_id_Employee_code = validate_input($_POST['fac_id']);
-        $faculty_email = validate_input($_POST['faculty_email']);
+        $faculty_name = $_POST['faculty_full_name'];
+        $faculty_id_Employee_code = $_POST['fac_id'];
+        $faculty_email = $_POST['faculty_email'];
         $faculty_password = password_hash($_POST['faculty_password'], PASSWORD_DEFAULT);
 
         if(isUserExist($conn, $faculty_email, $table)){
@@ -78,9 +71,9 @@ function isUserExist($conn, $email, $table){
     else if($_POST['role']=='parent'){
         $table = 'spms_parent';
 
-        $parent_name = validate_input($_POST['parent_full_name']);
-        $child_enrollment_id = validate_input($_POST['child_id']);
-        $parent_email = validate_input($_POST['parent_email']);
+        $parent_name = $_POST['parent_full_name'];
+        $child_enrollment_id = $_POST['child_id'];
+        $parent_email = $_POST['parent_email'];
         $parent_password = password_hash($_POST['parent_password'], PASSWORD_DEFAULT);
 
         if(isUserExist($conn, $parent_email, $table)){

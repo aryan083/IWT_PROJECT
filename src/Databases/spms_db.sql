@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2024 at 11:06 AM
+-- Generation Time: Apr 25, 2024 at 03:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,21 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `spms_db`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `media_files`
---
-
-CREATE TABLE `media_files` (
-  `id` int(11) NOT NULL,
-  `file_id` varchar(255) DEFAULT NULL,
-  `file_name` varchar(255) DEFAULT NULL,
-  `file_extension` varchar(10) DEFAULT NULL,
-  `source_directory` varchar(255) DEFAULT NULL,
-  `uploaded_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -151,12 +136,6 @@ CREATE TABLE `spms_student` (
 --
 
 --
--- Indexes for table `media_files`
---
-ALTER TABLE `media_files`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `projects_collaborators`
 --
 ALTER TABLE `projects_collaborators`
@@ -211,12 +190,6 @@ ALTER TABLE `spms_student`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `media_files`
---
-ALTER TABLE `media_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `projects_collaborators`

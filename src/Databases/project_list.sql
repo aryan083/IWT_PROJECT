@@ -31,6 +31,7 @@ CREATE TABLE `project_list` (
   `Title` varchar(20) NOT NULL,
   `Contributors` varchar(70) NOT NULL,
   `Faculty` varchar(30) NOT NULL,
+  
   `Status` varchar(30) NOT NULL,
   `Multimedia` blob NOT NULL,
   `Start date` date NOT NULL,
@@ -40,7 +41,7 @@ CREATE TABLE `project_list` (
   `Steps/instructions to build` varchar(5000) NOT NULL,
   `Outcomes` varchar(200) NOT NULL,
   `Recognition` varchar(200) NOT NULL,
-  `External links` varchar(300) NOT NULL
+  `External links` varchar(300) NOT NULL 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 COMMIT;
 

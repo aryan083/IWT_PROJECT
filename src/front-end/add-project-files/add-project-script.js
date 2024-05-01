@@ -7,11 +7,9 @@ var addedLinkCount = 0;
 function add_collab(){
     var defaultCollabField = document.getElementById("default-add-collab-stuff");
     var clonedCollabField = defaultCollabField.cloneNode(true); // Clone the default field
-    clearInputValues(clonedCollabField); // Clear input values of the cloned field
     document.getElementById("add-collab-field").appendChild(clonedCollabField); // Append the cloned field
     addedCollabCount++; // Increment the added collaborator count
 }
-
 // Function to add mentor fields
 function add_mentor(){
     var defaultMentorField = document.getElementById("default-add-mentor-stuff");
