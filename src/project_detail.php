@@ -6,7 +6,7 @@ require_once 'dbconnection.php';
 function getMediaFiles($projectId, $mediaType)
 {
     // Define media directory based on media type
-    $mediaDirectory = 'uploads/' .'project'. $projectId . '/' . $mediaType . '/';
+    $mediaDirectory = 'uploads/' .'project/'. $projectId . '/' . $mediaType . '/';
     // Check if the directory exists
     if (!file_exists($mediaDirectory)) {
         return array(); // Return an empty array if directory doesn't exist
@@ -43,7 +43,17 @@ function displayMedia($projectId, $mediaType)
         }
         // Display videos using <iframe> tag
         elseif ($mediaType == 'videos') {
-            echo '<iframe src="' . $mediaFile . '" frameborder="0" allowfullscreen class="media-item"></iframe>';
+            // Check if the file extension is supported
+            $allowedExtensions = array('mp4', 'webm', 'ogg','mkv','mp3'); // Add more formats if needed
+            $fileExtension = pathinfo($mediaFile, PATHINFO_EXTENSION);
+            if (in_array(strtolower($fileExtension), $allowedExtensions)) {
+                echo '<video controls class="media-item">';
+                echo '<source src="' . $mediaFile . '" type="video/' . strtolower($fileExtension) . '">';
+                echo 'Your browser does not support the video tag.';
+                echo '</video>';
+            } else {
+                echo 'Unsupported video format: ' . $fileExtension;
+            }
         }
         // Display PDF or text documents using <a> tag
         elseif ($mediaType == 'documents') {
@@ -80,7 +90,7 @@ function displayMedia($projectId, $mediaType)
 
         </style>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-     <link rel="stylesheet" href="src/front-end/individual-project-files/individual-project-style.css">
+     <link rel="stylesheet" href="front-end/individual-project-files/individual-project-style.css">
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </head>
     <body style="background-color: #6da9e9;">
@@ -148,6 +158,69 @@ function displayMedia($projectId, $mediaType)
     }
     ?></h5>
             </div>
+            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4" style="margin:10px">
+        <h2><b style="font-weight: 550;text-decoration: underline;">Contributors</b></h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            // Fetch contributors for the project from the database
+            $query = "SELECT * FROM projects_collaborators WHERE project_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $projectId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row['name'] . "</td>";
+                    echo "<td>" . $row['role'] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='2'>No contributors found for this project.</td></tr>";
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4" style="margin:10px">
+        <h2><b style="font-weight: 550;text-decoration: underline;">Faculty</b></h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            // Fetch faculty for the project from the database
+            $query = "SELECT * FROM projects_faculty WHERE project_id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("i", $projectId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row['name'] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='2'>No faculty found for this project.</td></tr>";
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
             <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
             <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Start Date</b></h2>
             <h5 style="display: inline;">    <?php
