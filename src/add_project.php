@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fileCount = count($_FILES['MediaFiles']['name']);
     
         // Create project directory if it doesn't exist
-        $projectDirectory = 'uploads/' . $projectId . '/';
+        $projectDirectory = 'uploads/' .'project'. $projectId . '/';
         if (!file_exists($projectDirectory)) {
             mkdir($projectDirectory, 0777, true);
         }

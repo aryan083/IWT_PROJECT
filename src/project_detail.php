@@ -6,7 +6,7 @@ require_once 'dbconnection.php';
 function getMediaFiles($projectId, $mediaType)
 {
     // Define media directory based on media type
-    $mediaDirectory = 'uploads/' . $projectId . '/' . $mediaType . '/';
+    $mediaDirectory = 'uploads/' .'project'. $projectId . '/' . $mediaType . '/';
     // Check if the directory exists
     if (!file_exists($mediaDirectory)) {
         return array(); // Return an empty array if directory doesn't exist
