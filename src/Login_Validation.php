@@ -10,12 +10,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($role == 'student') {
         $table = 'spms_student';
         $password_column = 'student_password';
+        $id_column = 'student_enrollment_number';
     } else if ($role == 'faculty') {
         $table = 'spms_faculty';
         $password_column = 'faculty_password';
+        $id_column = 'faculty_id_Employee_code';
     } else {
         $table = 'spms_parent';
         $password_column = 'parent_password';
+        $id_column = 'parent_id';
     }
 
     $sql = "SELECT * FROM $table WHERE email = '$email'";
@@ -28,9 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $email;
             $_SESSION['role'] = $role;
             $_SESSION['name'] = $row['name'];
-            $_SESSION['id'] = $row['id'];
+            $_SESSION['id_column'] =$id_column;
             $_SESSION['table']=$table;
-            header("Location: dashboard.php");
+            $_SESSION['id'] = $row[$id_column];
+            header("Location: profile.php");
             exit();
         } else {
             header("Location: login-page.html?error=invalid_password");
