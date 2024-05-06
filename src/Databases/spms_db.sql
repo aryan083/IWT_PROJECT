@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2024 at 04:56 PM
+-- Generation Time: May 06, 2024 at 08:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -83,7 +83,8 @@ CREATE TABLE `spms_faculty` (
   `faculty_name` varchar(255) NOT NULL,
   `faculty_id_Employee_code` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `faculty_password` varchar(255) NOT NULL
+  `faculty_password` varchar(255) NOT NULL,
+  `profile_pic` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -97,7 +98,8 @@ CREATE TABLE `spms_parent` (
   `parent_name` varchar(255) NOT NULL,
   `child_enrollment_id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `parent_password` varchar(255) NOT NULL
+  `parent_password` varchar(255) NOT NULL,
+  `profile_pic` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -128,7 +130,8 @@ CREATE TABLE `spms_student` (
   `student_name` varchar(255) NOT NULL,
   `student_enrollment_number` bigint(20) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `student_password` longtext NOT NULL
+  `student_password` longtext NOT NULL,
+  `profile_pic` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
