@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 08:21 AM
+-- Generation Time: May 06, 2024 at 06:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -78,10 +78,10 @@ CREATE TABLE `projects_media_files` (
 --
 -- Table structure for table `spms_faculty`
 --
-
+ 
 CREATE TABLE `spms_faculty` (
-  `faculty_name` varchar(255) NOT NULL,
-  `faculty_id_Employee_code` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `faculty_id_Employee_code` bigint(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `faculty_password` varchar(255) NOT NULL,
   `profile_pic` varchar(200) DEFAULT NULL
@@ -95,11 +95,24 @@ CREATE TABLE `spms_faculty` (
 
 CREATE TABLE `spms_parent` (
   `parent_id` int(11) NOT NULL,
-  `parent_name` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `child_enrollment_id` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `parent_password` varchar(255) NOT NULL,
   `profile_pic` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `spms_posts`
+--
+
+CREATE TABLE `spms_posts` (
+  `id` int(11) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `caption` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -127,7 +140,7 @@ CREATE TABLE `spms_projects` (
 --
 
 CREATE TABLE `spms_student` (
-  `student_name` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   `student_enrollment_number` bigint(20) NOT NULL,
   `email` varchar(255) NOT NULL,
   `student_password` longtext NOT NULL,
@@ -170,13 +183,21 @@ ALTER TABLE `projects_media_files`
 -- Indexes for table `spms_faculty`
 --
 ALTER TABLE `spms_faculty`
-  ADD PRIMARY KEY (`faculty_id_Employee_code`);
+  ADD PRIMARY KEY (`faculty_id_Employee_code`),
+  ADD KEY `idx_faculty_id_Employee_code` (`faculty_id_Employee_code`);
 
 --
 -- Indexes for table `spms_parent`
 --
 ALTER TABLE `spms_parent`
   ADD PRIMARY KEY (`parent_id`);
+
+--
+-- Indexes for table `spms_posts`
+--
+ALTER TABLE `spms_posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `spms_projects`
@@ -188,7 +209,8 @@ ALTER TABLE `spms_projects`
 -- Indexes for table `spms_student`
 --
 ALTER TABLE `spms_student`
-  ADD PRIMARY KEY (`student_enrollment_number`);
+  ADD PRIMARY KEY (`student_enrollment_number`),
+  ADD KEY `idx_student_enrollment_number` (`student_enrollment_number`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -225,6 +247,12 @@ ALTER TABLE `spms_parent`
   MODIFY `parent_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `spms_posts`
+--
+ALTER TABLE `spms_posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `spms_projects`
 --
 ALTER TABLE `spms_projects`
@@ -257,6 +285,13 @@ ALTER TABLE `projects_faculty`
 --
 ALTER TABLE `projects_media_files`
   ADD CONSTRAINT `projects_media_files_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `spms_projects` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `spms_posts`
+--
+ALTER TABLE `spms_posts`
+  ADD CONSTRAINT `spms_posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `spms_faculty` (`faculty_id_Employee_code`) ON DELETE CASCADE,
+  ADD CONSTRAINT `spms_posts_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `spms_student` (`student_enrollment_number`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+</head>
+<body>
+
+<form action="create_post.php" method="post" enctype="multipart/form-data">
+    <h2>Create a Post</h2>
+    <label for="caption">Caption:</label><br>
+    <textarea id="caption" name="caption" rows="4" cols="50" required></textarea><br><br>
+    
+    <label for="media">Upload Media (up to 10 files):</label><br>
+    <input type="file" id="media" name="media[]" accept="image/*,video/*" multiple required><br><br>
+
+    <button type="submit">Create Post</button>
+</form>
+
+<script>
+    // JavaScript to restrict the number of uploaded files
+    document.getElementById("media").addEventListener("change", function() {
+        var files = this.files;
+        if (files.length > 10) {
+            alert("You can only upload a maximum of 10 files.");
+            this.value = ""; // Clear the selected files
+        }
+    });
+</script>
+
+</body>
+</html>

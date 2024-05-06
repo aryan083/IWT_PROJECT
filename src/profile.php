@@ -6,15 +6,40 @@ if (!isset($_SESSION['email'])) {
     header("Location: login-page.html");
     exit();
 }
+$table = $_SESSION['table'];
+// Include the database connection file
+require_once "dbconnection.php";
+
+// Initialize variables
+$email = "";
+$username = "";
+$profilePic = "";
+$userRole = $_SESSION['role'];
+$userId = $_SESSION['id'];
+$id_column = $_SESSION['id_column'];
+
+$selectQuery = "SELECT name, email, profile_pic FROM $table WHERE $id_column = ?";
+$stmt = $conn->prepare($selectQuery);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Fetch user details
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $username = $row['name'];
+    $email = $row['email'];
+    $profilePic = $row['profile_pic'];
+}
 
 // Check if the form to upload a new profile picture is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
     // Process the uploaded profile picture
-    $userId = $_SESSION['id'];
-    $userRole = $_SESSION['role'];
+    
+    
     
     // Define the upload directory based on user role and ID
-    $uploadDirectory = 'upload/profilepic/' . $userRole . '/' . $userId . '/';
+    $uploadDirectory = 'uploads/profilepic/' . $userRole . '/' . $userId . '/';
     
     // Create the upload directory if it doesn't exist
     if (!file_exists($uploadDirectory)) {
@@ -28,28 +53,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
     // Move the uploaded file to the upload directory
     if (move_uploaded_file($_FILES["profile_pic"]["tmp_name"], $targetFilePath)) {
         // File uploaded successfully, update the user table with the file path
-        require_once "dbconnection.php";
-        $email = $_SESSION['email'];
         
-        // Update the database with the profile picture path
-        $updateQuery = "UPDATE spms_user SET profile_pic = ? WHERE email = ?";
+        // Retrieve user details from the database
+        $email = $_SESSION['email'];
+       
+        
+        // Query to update profile picture path
+        $updateQuery = "UPDATE $table SET profile_pic = ? WHERE email = ?";
         $stmt = $conn->prepare($updateQuery);
         $stmt->bind_param("ss", $targetFilePath, $email);
         $stmt->execute();
         
-        // Close statement and database connection
-        $stmt->close();
-        $conn->close();
-        
-        // Redirect to the profile page after successful upload
-        header("Location: profile.php");
-        exit();
+        // Check if profile picture is updated successfully
+        if ($stmt->affected_rows > 0) {
+            // Fetch updated profile picture path and username from the database
+            $selectQuery = "SELECT name, profile_pic FROM $table WHERE email = ?";
+            $stmt = $conn->prepare($selectQuery);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            // Fetch profile picture path and username
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $username = $row['name'];
+                $profilePic = $row['profile_pic'];
+            }
+        } else {
+            echo "Failed to update profile picture.";
+        }
     } else {
         // File upload failed, handle the error
         echo "Sorry, there was an error uploading your file.";
     }
 }
-?>
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
 <!-- Profile Picture Section -->
 <div class="profile-pic-section">
     <?php if (!empty($profilePic)) : ?>
-        <!-- Display existing profile picture -->
+        <!-- Display uploaded profile picture -->
         <img src="<?php echo $profilePic; ?>" alt="Profile Picture">
     <?php else : ?>
         <!-- Display default profile picture or a placeholder image -->
@@ -83,8 +120,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
 
 <!-- User Details Section -->
 <div class="user-details-section">
-    <h1><?php echo $name; ?></h1>
+    <h1><?php echo $username; ?></h1>
     <p>Email: <?php echo $email; ?></p>
+    <p>ID: <?php echo $_SESSION['id']; ?></p>
     <!-- Add more user details here -->
 </div>
 
