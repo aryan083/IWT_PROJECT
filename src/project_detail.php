@@ -74,11 +74,25 @@ function displayMedia($projectId, $mediaType)
             display: block;
             margin-bottom: 10px;
         }
-    </style>
-</head>
-<body>
-    <h1>Project Details</h1>
-    <?php
+        body{
+    background-color: #6da9e9;;
+        }
+
+        </style>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+     <link rel="stylesheet" href="src/front-end/individual-project-files/individual-project-style.css">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </head>
+    <body style="background-color: #6da9e9;">
+
+    <div class="container d -flex justify-content-center align-items-center min-vh-100">
+
+
+   
+    <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+
+            <div class="form-control form-control-lg bg-white "style="text-align: center; border: none; margin:10px">
+                <h1><b style="font-weight: 650;">                <?php
     // Check if the project ID is provided in the URL
    
     if (isset($_GET['project_id'])) {
@@ -94,31 +108,243 @@ function displayMedia($projectId, $mediaType)
         // Check if the project exists
         if ($result->num_rows > 0) {
             $project = $result->fetch_assoc();
-            echo '<div class="project-details">';
-            echo '<h2>' . $project['title'] . '</h2>';
-            echo '<p>Description: ' . $project['description'] . '</p>';
-            echo '<p>Start Date: ' . $project['start_date'] . '</p>';
-            echo '<p>End Date: ' . $project['end_date'] . '</p>';
-            echo '<p>Status: ' . $project['status'] . '</p>';
-            echo '<h3>Images</h3>';
-            echo '<div class="media-container">';
-            displayMedia($projectId, 'images');
-            echo '</div>';
-            echo '<h3>Videos</h3>';
-            echo '<div class="media-container">';
-            displayMedia($projectId, 'videos');
-            echo '</div>';
-            echo '<h3>Documents</h3>';
-            echo '<div class="media-container">';
-            displayMedia($projectId, 'documents');
-            echo '</div>';
-            echo '</div>';
+            echo  $project['title'];
+
         } else {
             echo "Project not found.";
         }
     } else {
         echo "Project ID is not provided.";
     }
-    ?>
+    ?></b></h1>
+
+            </div>
+            </div>
+            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <h2><b style="font-weight: 550;text-decoration: underline;">Description</b></h2>
+            <h5>    <?php
+    // Check if the project ID is provided in the URL
+   
+    if (isset($_GET['project_id'])) {
+        $projectId = $_GET['project_id'];
+
+        // Fetch project details from the database
+        $query = "SELECT * FROM spms_projects WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $projectId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Check if the project exists
+        if ($result->num_rows > 0) {
+            $project = $result->fetch_assoc();
+            echo  $project['description'];
+  
+        } else {
+            echo "Project not found.";
+        }
+    } else {
+        echo "Project ID is not provided.";
+    }
+    ?></h5>
+            </div>
+            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Start Date</b></h2>
+            <h5 style="display: inline;">    <?php
+    // Check if the project ID is provided in the URL
+   
+    if (isset($_GET['project_id'])) {
+        $projectId = $_GET['project_id'];
+
+        // Fetch project details from the database
+        $query = "SELECT * FROM spms_projects WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $projectId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Check if the project exists
+        if ($result->num_rows > 0) {
+            $project = $result->fetch_assoc();
+
+            echo  $project['start_date'];
+
+        } else {
+            echo "Project not found.";
+        }
+    } else {
+        echo "Project ID is not provided.";
+    }
+    ?></h5>
+            </div>
+            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">End Date</b></h2>
+            <h5 style="display: inline;">   <?php
+    // Check if the project ID is provided in the URL
+   
+    if (isset($_GET['project_id'])) {
+        $projectId = $_GET['project_id'];
+
+        // Fetch project details from the database
+        $query = "SELECT * FROM spms_projects WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $projectId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Check if the project exists
+        if ($result->num_rows > 0) {
+            $project = $result->fetch_assoc();
+
+            echo  $project['end_date'];
+
+        } else {
+            echo "Project not found.";
+        }
+    } else {
+        echo "Project ID is not provided.";
+    }
+    ?></h5>
+            </div>
+            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Status</b></h2>
+            <h5 style="display: inline;">   <?php
+    // Check if the project ID is provided in the URL
+   
+    if (isset($_GET['project_id'])) {
+        $projectId = $_GET['project_id'];
+
+        // Fetch project details from the database
+        $query = "SELECT * FROM spms_projects WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $projectId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Check if the project exists
+        if ($result->num_rows > 0) {
+            $project = $result->fetch_assoc();
+
+            echo  $project['status'];
+
+        } else {
+            echo "Project not found.";
+        }
+    } else {
+        echo "Project ID is not provided.";
+    }
+    ?></h5>
+            </div>
+            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Photos</b></h2>
+            <h5 style="display: inline;">   <?php
+    // Check if the project ID is provided in the URL
+   
+    if (isset($_GET['project_id'])) {
+        $projectId = $_GET['project_id'];
+
+        // Fetch project details from the database
+        $query = "SELECT * FROM spms_projects WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $projectId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Check if the project exists
+        if ($result->num_rows > 0) {
+            $project = $result->fetch_assoc();
+
+            // echo  $project['start_date'];
+
+            echo '<div class="media-container rounded-3 mt-3">';
+            displayMedia($projectId, 'images');
+            echo '</div>';
+
+        } else {
+            echo "Project not found.";
+        }
+    } else {
+        echo "Project ID is not provided.";
+    }
+    ?></h5>
+            </div>
+            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Videos</b></h2>
+            <h5 style="display: inline;"><?php
+    // Check if the project ID is provided in the URL
+   
+    if (isset($_GET['project_id'])) {
+        $projectId = $_GET['project_id'];
+
+        // Fetch project details from the database
+        $query = "SELECT * FROM spms_projects WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $projectId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Check if the project exists
+        if ($result->num_rows > 0) {
+            $project = $result->fetch_assoc();
+
+            // echo  $project['start_date'];
+
+            echo '<div class="media-container rounded-3 mt-3 ">';
+            displayMedia($projectId, 'videos');
+            echo '</div>';
+
+        } else {
+            echo "Project not found.";
+        }
+    } else {
+        echo "Project ID is not provided.";
+    }
+    ?></h5>
+            </div>
+            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Documents</b></h2>
+            <h5 style="display: inline;"><?php
+    // Check if the project ID is provided in the URL
+   
+    if (isset($_GET['project_id'])) {
+        $projectId = $_GET['project_id'];
+
+        // Fetch project details from the database
+        $query = "SELECT * FROM spms_projects WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $projectId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        // Check if the project exists
+        if ($result->num_rows > 0) {
+            $project = $result->fetch_assoc();
+
+            // echo  $project['start_date'];
+
+            echo '<div class="media-container rounded-3 mt-3 ">';
+            displayMedia($projectId, 'documents');
+            echo '</div>';
+
+        } else {
+            echo "Project not found.";
+        }
+    } else {
+        echo "Project ID is not provided.";
+    }
+    ?></h5>
+            </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
 </body>
 </html>
