@@ -42,7 +42,7 @@ function select_student(){
 </div>
 
 <div class="input-group mb-3">
-    <input type="submit" class="btn btn-lg btn-primary w-100 fs-6"></input>
+    <input type="submit" value = "Submit" class="btn btn-lg btn-primary w-100 fs-6"></input>
 </div>
 <div class="row">
     <small class="d-flex justify-content-center">Already a user ? <a href="login-page.html"> Login</a></small>
@@ -73,7 +73,7 @@ function select_parent(){
 </div>
 
 <div class="input-group mb-3">
-    <input type="submit" class="btn btn-lg btn-primary w-100 fs-6"></input>
+    <input type="submit" value = "Submit" class="btn btn-lg btn-primary w-100 fs-6"></input>
 </div>
 <div class="row">
     <small class="d-flex justify-content-center">Already a user ? <a href="login-page.html"> Login</a></small>
@@ -106,7 +106,7 @@ function select_faculty(){
 </div>
 
 <div class="input-group mb-3">
-    <input type="submit" class="btn btn-lg btn-primary w-100 fs-6"></input>
+    <input type="submit" value = "Submit" class="btn btn-lg btn-primary w-100 fs-6"></input>
 </div>
 <div class="row">
     <small class="d-flex justify-content-center">Already a user ? <a href="login-page.html"> Login</a></small>
