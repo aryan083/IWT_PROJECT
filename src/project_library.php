@@ -12,9 +12,7 @@
 <body>
     <div class="container d -flex justify-content-center align-items-center min-vh-100">
 
-
-
-        <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+        <div class="row border rounded-5 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
 
             <div class="form-control form-control-lg bg-white "style="text-align: center; border: none; margin:10px">
                 <h1><b style="font-weight: 650;">PROJECT LIBRARY</b></h1>
