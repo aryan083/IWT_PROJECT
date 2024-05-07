@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="split-container">
+        <div class="left-pane">
+            <div class="calendar-container">
+                <header>
+                    <div class="calendar-navigation">
+                        <span id="calendar-prev">&lt;</span>
+                        <span id="calendar-next">&gt;</span>
+                    </div>
+                    <p class="calendar-current-date"></p>
+                </header>
+                <div class="calendar-body">
+                    <ul class="calendar-weekdays">
+                        <li>Sun</li>
+                        <li>Mon</li>
+                        <li>Tue</li>
+                        <li>Wed</li>
+                        <li>Thu</li>
+                        <li>Fri</li>
+                        <li>Sat</li>
+                    </ul>
+                    <ul class="calendar-dates"></ul>
+                </div>
+            </div>
+        </div>
+        <div class="right-pane">
+            <div class="event-container">
+                <div class="news-pane"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
