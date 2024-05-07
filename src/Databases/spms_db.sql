@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 06:09 PM
+-- Generation Time: May 07, 2024 at 11:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `spms_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_media`
+--
+
+CREATE TABLE `post_media` (
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `file_name` varchar(255) DEFAULT NULL,
+  `file_extension` varchar(10) DEFAULT NULL,
+  `file_path` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -78,7 +92,7 @@ CREATE TABLE `projects_media_files` (
 --
 -- Table structure for table `spms_faculty`
 --
- 
+
 CREATE TABLE `spms_faculty` (
   `name` varchar(255) NOT NULL,
   `faculty_id_Employee_code` bigint(11) NOT NULL,
@@ -152,6 +166,13 @@ CREATE TABLE `spms_student` (
 --
 
 --
+-- Indexes for table `post_media`
+--
+ALTER TABLE `post_media`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_id` (`post_id`);
+
+--
 -- Indexes for table `projects_collaborators`
 --
 ALTER TABLE `projects_collaborators`
@@ -217,6 +238,12 @@ ALTER TABLE `spms_student`
 --
 
 --
+-- AUTO_INCREMENT for table `post_media`
+--
+ALTER TABLE `post_media`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `projects_collaborators`
 --
 ALTER TABLE `projects_collaborators`
@@ -263,6 +290,12 @@ ALTER TABLE `spms_projects`
 --
 
 --
+-- Constraints for table `post_media`
+--
+ALTER TABLE `post_media`
+  ADD CONSTRAINT `post_media_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `spms_posts` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `projects_collaborators`
 --
 ALTER TABLE `projects_collaborators`
@@ -290,7 +323,6 @@ ALTER TABLE `projects_media_files`
 -- Constraints for table `spms_posts`
 --
 ALTER TABLE `spms_posts`
-  ADD CONSTRAINT `spms_posts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `spms_faculty` (`faculty_id_Employee_code`) ON DELETE CASCADE,
   ADD CONSTRAINT `spms_posts_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `spms_student` (`student_enrollment_number`) ON DELETE CASCADE;
 COMMIT;
 
