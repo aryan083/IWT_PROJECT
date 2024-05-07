@@ -1,3 +1,4 @@
+<!-- PHP code in profile.php -->
 <?php
 session_start();
 
@@ -36,7 +37,11 @@ if ($result->num_rows > 0) {
 
 // Fetch user posts
 $userPosts = array();
-$selectPostsQuery = "SELECT * FROM spms_posts WHERE user_id = ?";
+$selectPostsQuery = "SELECT spms_posts.*, COUNT(post_likes.post_id) AS like_count 
+                     FROM spms_posts 
+                     LEFT JOIN post_likes ON spms_posts.id = post_likes.post_id 
+                     WHERE spms_posts.user_id = ?
+                     GROUP BY spms_posts.id";
 $stmtPosts = $conn->prepare($selectPostsQuery);
 $stmtPosts->bind_param("i", $userId);
 $stmtPosts->execute();
@@ -48,7 +53,6 @@ if ($resultPosts->num_rows > 0) {
         $userPosts[] = $rowPost;
     }
 }
-
 // Check if the form to upload a new profile picture is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
     // Process the uploaded profile picture
@@ -156,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
                         $stmtMedia->bind_param("i", $postId);
                         $stmtMedia->execute();
                         $resultMedia = $stmtMedia->get_result();
-
+                        
                         // Display media files
                         if ($resultMedia->num_rows > 0) {
                             while ($rowMedia = $resultMedia->fetch_assoc()) {
@@ -176,6 +180,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
                             }
                         }
                     ?>
+
+                    <!-- Like and Comment Options -->
+                    <div>
+                        <p>Like Count: <span id="like-count-<?php echo $postId; ?>"><?php echo $post['like_count']; ?></span></p>
+                        <button class="like-btn" data-post-id="<?php echo $postId; ?>">Like</button>
+                        <button onclick="commentOnPost(<?php echo $postId; ?>)">Comment</button>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div>
+                        <h3>Comments</h3>
+                        <?php 
+                            // Fetch comments for the post
+                            $selectCommentsQuery = "SELECT * FROM post_comments WHERE post_id = ?";
+                            $stmtComments = $conn->prepare($selectCommentsQuery);
+                            $stmtComments->bind_param("i", $postId);
+                            $stmtComments->execute();
+                            $resultComments = $stmtComments->get_result();
+                            
+                            // Display comments
+                            if ($resultComments->num_rows > 0) {
+                                while ($rowComment = $resultComments->fetch_assoc()) {
+                                    echo '<p><strong>' . $rowComment['commenter_name'] . ':</strong> ' . $rowComment['comment_text'] . '</p>';
+                                }
+                            } else {
+                                echo '<p>No comments yet.</p>';
+                            }
+                        ?>
+                    </div>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -186,5 +219,91 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
 
 <!-- Add your HTML structure and styles for other user details -->
 
+<script>
+// Function to like a post
+function likePost(postId) {
+    // Send AJAX request to like the post
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "like_post.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Check if the response indicates success or failure
+            if (xhr.responseText.startsWith("Like") || xhr.responseText.startsWith("Unlike")) {
+                // Update the like count span on the page if the operation was successful
+                var likeCountSpan = document.getElementById("like-count-" + postId);
+                if (likeCountSpan) {
+                    // Extract the updated like count from the response
+                    var updatedLikeCount = parseInt(xhr.responseText.split(":")[1]);
+                    // Update the like count span with the updated value
+                    likeCountSpan.innerHTML = updatedLikeCount;
+                }
+            } else {
+                // Handle other types of responses (e.g., error messages)
+                console.error("Error: " + xhr.responseText);
+            }
+        }
+    };
+    xhr.send("post_id=" + postId);
+}
+
+// Function to add a comment to a post
+function commentOnPost(postId) {
+    // Get the comment text from the user
+    var commentText = prompt("Enter your comment:");
+
+    // Send AJAX request to add the comment
+    if (commentText != null && commentText.trim() != "") {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "add_comment.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Reload the page to display the new comment
+                location.reload();
+            }
+        };
+        xhr.send("post_id=" + postId + "&comment_text=" + encodeURIComponent(commentText));
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Get all like buttons
+    var likeButtons = document.querySelectorAll(".like-btn");
+
+    // Attach click event listener to each like button
+    likeButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            // Get the post ID and like count element
+            var postId = this.dataset.postId;
+            var likeCountElement = this.previousElementSibling.firstElementChild;
+
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+
+            // Configure the request
+            xhr.open("POST", "like_post.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            // Define the request parameters
+            var params = "post_id=" + encodeURIComponent(postId);
+
+            // Define the callback function when the request is completed
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Update the like count on success
+                    likeCountElement.textContent = xhr.responseText;
+                } else {
+                    // Handle errors
+                    console.error("Request failed. Status: " + xhr.status);
+                }
+            };
+
+            // Send the request
+            xhr.send(params);
+        });
+    });
+});
+</script>
 </body>
 </html>

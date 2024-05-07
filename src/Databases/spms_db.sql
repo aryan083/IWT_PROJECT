@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2024 at 11:17 AM
+-- Generation Time: May 07, 2024 at 01:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,33 @@ SET time_zone = "+00:00";
 --
 -- Database: `spms_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_comments`
+--
+
+CREATE TABLE `post_comments` (
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `commenter_name` varchar(255) NOT NULL,
+  `comment_text` text NOT NULL,
+  `comment_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_likes`
+--
+
+CREATE TABLE `post_likes` (
+  `like_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `user_id` bigint(11) NOT NULL,
+  `user_role` enum('student','faculty','parent') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -93,28 +120,28 @@ CREATE TABLE `projects_media_files` (
 -- Table structure for table `spms_faculty`
 --
 
-CREATE TABLE `spms_faculty` (
-  `name` varchar(255) NOT NULL,
-  `faculty_id_Employee_code` bigint(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `faculty_password` varchar(255) NOT NULL,
-  `profile_pic` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CREATE TABLE `spms_faculty` (
+    `name` varchar(255) NOT NULL,
+    `faculty_id_Employee_code` bigint(11) NOT NULL,
+    `email` varchar(255) NOT NULL,
+    `faculty_password` varchar(255) NOT NULL,
+    `profile_pic` varchar(200) DEFAULT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+  -- --------------------------------------------------------
 
---
--- Table structure for table `spms_parent`
---
+  --
+  -- Table structure for table `spms_parent`
+  --
 
-CREATE TABLE `spms_parent` (
-  `parent_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `child_enrollment_id` int(11) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `parent_password` varchar(255) NOT NULL,
-  `profile_pic` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CREATE TABLE `spms_parent` (
+    `parent_id` bigint(11) NOT NULL,
+    `name` varchar(255) NOT NULL,
+    `child_enrollment_id` int(11) NOT NULL,
+    `email` varchar(255) NOT NULL,
+    `parent_password` varchar(255) NOT NULL,
+    `profile_pic` varchar(200) DEFAULT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -124,7 +151,7 @@ CREATE TABLE `spms_parent` (
 
 CREATE TABLE `spms_posts` (
   `id` int(11) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
+  `user_id` bigint(11) NOT NULL,
   `caption` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -155,15 +182,40 @@ CREATE TABLE `spms_projects` (
 
 CREATE TABLE `spms_student` (
   `name` varchar(255) NOT NULL,
-  `student_enrollment_number` bigint(20) NOT NULL,
+  `student_enrollment_number` bigint(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `student_password` longtext NOT NULL,
   `profile_pic` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_ids`
+--
+
+CREATE TABLE `user_ids` (
+  `user_id` bigint(11) NOT NULL,
+  `user_role` enum('student','faculty','parent') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_likes`
+--
+ALTER TABLE `post_likes`
+  ADD PRIMARY KEY (`like_id`),
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `user_id` (`user_id`,`user_role`);
 
 --
 -- Indexes for table `post_media`
@@ -234,8 +286,27 @@ ALTER TABLE `spms_student`
   ADD KEY `idx_student_enrollment_number` (`student_enrollment_number`);
 
 --
+-- Indexes for table `user_ids`
+--
+ALTER TABLE `user_ids`
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `user_id_role_index` (`user_id`,`user_role`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `post_likes`
+--
+ALTER TABLE `post_likes`
+  MODIFY `like_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `post_media`
@@ -271,7 +342,7 @@ ALTER TABLE `projects_media_files`
 -- AUTO_INCREMENT for table `spms_parent`
 --
 ALTER TABLE `spms_parent`
-  MODIFY `parent_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `parent_id` bigint(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `spms_posts`
@@ -288,6 +359,13 @@ ALTER TABLE `spms_projects`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `post_likes`
+--
+ALTER TABLE `post_likes`
+  ADD CONSTRAINT `post_likes_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `spms_posts` (`id`),
+  ADD CONSTRAINT `post_likes_ibfk_2` FOREIGN KEY (`user_id`,`user_role`) REFERENCES `user_ids` (`user_id`, `user_role`);
 
 --
 -- Constraints for table `post_media`

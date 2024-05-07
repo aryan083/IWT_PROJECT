@@ -2,6 +2,18 @@
 require_once 'dbconnection.php';
 
 
+function insertUserIds($conn) {
+    // Insert user IDs from different tables into user_ids table
+    $insertQuery = "INSERT INTO user_ids (user_id, user_role)
+                    SELECT student_enrollment_number, 'student' FROM spms_student
+                    UNION ALL
+                    SELECT faculty_id_Employee_code, 'faculty' FROM spms_faculty
+                    UNION ALL
+                    SELECT parent_id, 'parent' FROM spms_parent";
+
+    mysqli_query($conn, $insertQuery);
+}
+
 function isUserExist($conn, $email, $table){
     $sql = "SELECT * FROM $table WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
@@ -58,7 +70,9 @@ function isUserExist($conn, $email, $table){
             $sql = "INSERT INTO $table (name, faculty_id_Employee_code, email, faculty_password) VALUES 
             ('$faculty_name', '$faculty_id_Employee_code', '$faculty_email', '$faculty_password')";
             if(mysqli_query($conn, $sql)){
+                insertUserIds($conn);
                 header("Location: login-page.html");
+
                 exit();
             }
             else{
@@ -77,6 +91,7 @@ function isUserExist($conn, $email, $table){
         $parent_password = password_hash($_POST['parent_password'], PASSWORD_DEFAULT);
 
         if(isUserExist($conn, $parent_email, $table)){
+            insertUserIds($conn);
             header("Location: sign-up.html?error=user_already_exists");
             exit();
         }
@@ -84,6 +99,7 @@ function isUserExist($conn, $email, $table){
             $sql = "INSERT INTO $table (name, child_enrollment_id, email, parent_password) VALUES 
             ('$parent_name', '$child_enrollment_id', '$parent_email', '$parent_password')";
             if(mysqli_query($conn, $sql)){
+                insertUserIds($conn);
                 header("Location: login-page.html");
                 exit();
             }
