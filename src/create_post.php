@@ -12,6 +12,7 @@ require_once "dbconnection.php";
 
 // Process form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get user ID from session
     $userId = $_SESSION['id'];
     $caption = $_POST['caption'];
 
@@ -21,38 +22,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("is", $userId, $caption);
     $stmt->execute();
 
-    // Get the ID of the newly inserted post
-    $postId = $conn->insert_id;
+    // Check if post was successfully inserted
+    if ($stmt->affected_rows > 0) {
+        // Get the ID of the newly inserted post
+        $postId = $conn->insert_id;
 
-    // Process uploaded media files
-    if (!empty($_FILES['media']['name'][0])) {
-        $uploadDirectory = 'uploads/post_media/';
+        // Handle media files insertion
+        // Example code for handling media files upload
+        if (!empty($_FILES['media']['name'][0])) {
+            $fileCount = count($_FILES['media']['name']);
 
-        // Create the upload directory if it doesn't exist
-        if (!file_exists($uploadDirectory)) {
-            mkdir($uploadDirectory, 0777, true);
+            // Loop through each file
+            for ($i = 0; $i < $fileCount; $i++) {
+                $fileName = $_FILES['media']['name'][$i];
+                $fileTmpName = $_FILES['media']['tmp_name'][$i];
+                $fileType = $_FILES['media']['type'][$i];
+                $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+                $uploadDirectory = 'uploads/post_media/';
+
+                // Generate a unique filename to avoid conflicts
+                $uniqueFileName = uniqid() . '_' . $fileName;
+                $destination = $uploadDirectory . $uniqueFileName;
+
+                // Move uploaded file to the destination directory
+                move_uploaded_file($fileTmpName, $destination);
+
+                // Insert file data into post_media table
+                $insertMediaQuery = "INSERT INTO post_media (post_id, file_name, file_extension, file_path) VALUES (?, ?, ?, ?)";
+                $stmt = $conn->prepare($insertMediaQuery);
+                $stmt->bind_param("isss", $postId, $fileName, $fileExtension, $destination);
+                $stmt->execute();
+            }
         }
 
-        foreach ($_FILES['media']['tmp_name'] as $key => $tmp_name) {
-            $mediaName = $_FILES['media']['name'][$key];
-            $mediaPath = $uploadDirectory . $mediaName;
-
-            // Move the uploaded media file to the upload directory
-            move_uploaded_file($_FILES['media']['tmp_name'][$key], $mediaPath);
-
-            // Insert media path into the post_media table
-            $insertMediaQuery = "INSERT INTO post_media (post_id, media_path) VALUES (?, ?)";
-            $stmt = $conn->prepare($insertMediaQuery);
-            $stmt->bind_param("is", $postId, $mediaPath);
-            $stmt->execute();
-        }
+        // Redirect to the profile page after successful post creation
+        header("Location: profile.php");
+        exit();
+    } else {
+        // Handle error if post insertion failed
+        echo "Error: Failed to create post.";
     }
-
-    // Close statement and database connection
-    $stmt->close();
-    $conn->close();
-
-    // Redirect to the profile page after successful post creation
-    header("Location: profile.php");
+} else {
+    // Redirect if form submission method is not POST
+    header("Location: login-page.html");
     exit();
 }
+?>

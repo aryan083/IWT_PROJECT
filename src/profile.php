@@ -6,7 +6,7 @@ if (!isset($_SESSION['email'])) {
     header("Location: login-page.html");
     exit();
 }
-$table = $_SESSION['table'];
+
 // Include the database connection file
 require_once "dbconnection.php";
 
@@ -17,7 +17,9 @@ $profilePic = "";
 $userRole = $_SESSION['role'];
 $userId = $_SESSION['id'];
 $id_column = $_SESSION['id_column'];
+$table = $_SESSION['table'];
 
+// Fetch user details
 $selectQuery = "SELECT name, email, profile_pic FROM $table WHERE $id_column = ?";
 $stmt = $conn->prepare($selectQuery);
 $stmt->bind_param("i", $userId);
@@ -32,11 +34,24 @@ if ($result->num_rows > 0) {
     $profilePic = $row['profile_pic'];
 }
 
+// Fetch user posts
+$userPosts = array();
+$selectPostsQuery = "SELECT * FROM spms_posts WHERE user_id = ?";
+$stmtPosts = $conn->prepare($selectPostsQuery);
+$stmtPosts->bind_param("i", $userId);
+$stmtPosts->execute();
+$resultPosts = $stmtPosts->get_result();
+
+// Fetch user posts
+if ($resultPosts->num_rows > 0) {
+    while ($rowPost = $resultPosts->fetch_assoc()) {
+        $userPosts[] = $rowPost;
+    }
+}
+
 // Check if the form to upload a new profile picture is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
     // Process the uploaded profile picture
-    
-    
     
     // Define the upload directory based on user role and ID
     $uploadDirectory = 'uploads/profilepic/' . $userRole . '/' . $userId . '/';
@@ -56,7 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
         
         // Retrieve user details from the database
         $email = $_SESSION['email'];
-       
         
         // Query to update profile picture path
         $updateQuery = "UPDATE $table SET profile_pic = ? WHERE email = ?";
@@ -124,6 +138,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
     <p>Email: <?php echo $email; ?></p>
     <p>ID: <?php echo $_SESSION['id']; ?></p>
     <!-- Add more user details here -->
+</div>
+
+<!-- User Posts Section -->
+<div class="user-posts-section">
+    <h2>User Posts</h2>
+    <?php if (!empty($userPosts)) : ?>
+        <ul>
+            <?php foreach ($userPosts as $post) : ?>
+                <li>
+                    <p><?php echo $post['caption']; ?></p>
+                    <?php 
+                        // Fetch media files associated with the post
+                        $postId = $post['id'];
+                        $selectMediaQuery = "SELECT file_path FROM post_media WHERE post_id = ?";
+                        $stmtMedia = $conn->prepare($selectMediaQuery);
+                        $stmtMedia->bind_param("i", $postId);
+                        $stmtMedia->execute();
+                        $resultMedia = $stmtMedia->get_result();
+
+                        // Display media files
+                        if ($resultMedia->num_rows > 0) {
+                            while ($rowMedia = $resultMedia->fetch_assoc()) {
+                                $mediaPath = $rowMedia['file_path'];
+                                // Check media type and display accordingly
+                                $mediaType = pathinfo($mediaPath, PATHINFO_EXTENSION);
+                                if (in_array($mediaType, ['jpg', 'jpeg', 'png', 'gif'])) {
+                                    // Display image
+                                    echo '<img src="' . $mediaPath . '" alt="Image">';
+                                } else if (in_array($mediaType, ['mp4', 'mov', 'avi', 'wmv','mkv'])) {
+                                    // Display video
+                                    echo '<video controls><source src="' . $mediaPath . '" type="video/mp4"></video>';
+                                } else {
+                                    // Display other types of media files (e.g., documents)
+                                    echo '<a href="' . $mediaPath . '" target="_blank">View Media</a>';
+                                }
+                            }
+                        }
+                    ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else : ?>
+        <p>No posts found.</p>
+    <?php endif; ?>
 </div>
 
 <!-- Add your HTML structure and styles for other user details -->

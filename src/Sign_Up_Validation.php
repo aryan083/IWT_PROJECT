@@ -29,7 +29,7 @@ function isUserExist($conn, $email, $table){
             exit();
         }
         else{
-            $sql = "INSERT INTO $table (student_name, student_enrollment_number, email, student_password) VALUES 
+            $sql = "INSERT INTO $table (name, student_enrollment_number, email, student_password) VALUES 
             ('$student_name', '$student_enrollment_number', '$student_email', '$student_password')";
             if(mysqli_query($conn, $sql)){
                 header("Location: login-page.html");
@@ -55,7 +55,7 @@ function isUserExist($conn, $email, $table){
             exit();
         }
         else{
-            $sql = "INSERT INTO $table (faculty_name, faculty_id_Employee_code, email, faculty_password) VALUES 
+            $sql = "INSERT INTO $table (name, faculty_id_Employee_code, email, faculty_password) VALUES 
             ('$faculty_name', '$faculty_id_Employee_code', '$faculty_email', '$faculty_password')";
             if(mysqli_query($conn, $sql)){
                 header("Location: login-page.html");
@@ -81,7 +81,7 @@ function isUserExist($conn, $email, $table){
             exit();
         }
         else{
-            $sql = "INSERT INTO $table (parent_name, child_enrollment_id, email, parent_password) VALUES 
+            $sql = "INSERT INTO $table (name, child_enrollment_id, email, parent_password) VALUES 
             ('$parent_name', '$child_enrollment_id', '$parent_email', '$parent_password')";
             if(mysqli_query($conn, $sql)){
                 header("Location: login-page.html");
