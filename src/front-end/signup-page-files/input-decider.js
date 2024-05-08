@@ -22,36 +22,29 @@
 // passoword
 
 //onselect of the dropdown of will select one of the three functions below
-
 function select_student(){
-
-    var html = `<div class="input-group mb-2">
-    <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Full Name" name="student_full_name" id="full_name">
-</div>
-
-    <input type="hidden" name="role" value="student"></input>
-
-<div class="input-group mb-2">
-    <input type="number" class="form-control form-control-lg bg-light fs-6" placeholder="Enrollment No." name="student_enr_no" id="enr_no">
-</div>
-<div class="input-group mb-2">
-    <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Email Address" name="student_email" id="email">
-</div>
-<div class="input-group mb-3">
-    <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password" name="student_password" id="password">
-</div>
-
-<div class="input-group mb-3">
-    <input type="submit" value = "Submit" class="btn btn-lg btn-primary w-100 fs-6"></input>
-</div>
-<div class="row">
-    <small class="d-flex justify-content-center">Already a user ? <a href="login-page.html"> Login</a></small>
-</div>`
-
-
-
-document.getElementById("input-group-js-signup").innerHTML = html;
-document.getElementById("dropdown-signup-selector").innerText = "Student";
+    var html = `
+        <div class="input-group mb-2">
+            <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Full Name" name="student_full_name" id="full_name">
+        </div>
+        <input type="hidden" name="role" value="student"></input>
+        <div class="input-group mb-2">
+            <input type="number" class="form-control form-control-lg bg-light fs-6" placeholder="Enrollment No." name="student_enr_no" id="enr_no">
+        </div>
+        <div class="input-group mb-2">
+            <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Email Address" name="student_email" id="email">
+        </div>
+        <div class="input-group mb-3">
+            <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password" name="student_password" id="password">
+        </div>
+        <div class="input-group mb-3">
+            <input type="submit" value="Submit" class="btn btn-lg btn-primary w-100 fs-6"></input>
+        </div>
+        <div class="row">
+            <small class="d-flex justify-content-center">Already a user? <a href="login-page.html">Login</a></small>
+        </div>`;
+    document.getElementById("input-group-js-signup").innerHTML = html;
+    document.getElementById("dropdown-signup-selector").innerText = "Student";
 
 }
 
@@ -119,6 +112,13 @@ document.getElementById("dropdown-signup-selector").innerText = "Faculty";
 
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Select the Student button by its index (0-based) and add the active class
+    document.querySelectorAll('.dropdown-item')[0].classList.add('active');
+
+    // Display student registration form by default
+    select_student();
+});
 // <!-- input group that will be affected by the js file -->
 
 
