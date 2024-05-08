@@ -112,7 +112,7 @@ if ($result->num_rows > 0) {
         echo "</div>";
     }
 } else {
-    echo "No more projects found.";
+    echo "";
 }
 
 // Close database connection
