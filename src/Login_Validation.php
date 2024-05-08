@@ -34,7 +34,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['id_column'] =$id_column;
             $_SESSION['table']=$table;
             $_SESSION['id'] = $row[$id_column];
-            header("Location: profile.php");
+            echo "Login Successful";
+            echo "<br>";
+            echo "Welcome " . $_SESSION['name'];
+            echo $_SESSION['role'];
+            echo $_SESSION['id'];
+            echo $_SESSION['id_column'];
+            echo $_SESSION['table'];
+
+
+            header("Location: index2.php");
+
             exit();
         } else {
             header("Location: login-page.html?error=invalid_password");

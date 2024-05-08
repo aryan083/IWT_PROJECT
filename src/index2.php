@@ -1,7 +1,14 @@
 <?php
+session_start();
 require_once 'dbconnection.php';
 
+if(empty($_SESSION['id'])){
 
+  // If not logged in, redirect to login page
+  header("Location: login-page.html");
+  exit();
+  
+}
 
 ?>
 <!DOCTYPE html>
@@ -54,8 +61,12 @@ require_once 'dbconnection.php';
           </ul>
         </div>
       </div>
-      <a href="login-page.html" class="login-button ">Login</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="offcanvasNavbar"
+      <?php if (isset($_SESSION['email'])): ?>
+            <a href="profile.php" class="login-button">Profile</a>
+        <?php else: ?>
+            <a href="login-page.html" class="login-button">Login</a>
+        <?php endif; ?>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="offcanvasNavbar"
         aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
