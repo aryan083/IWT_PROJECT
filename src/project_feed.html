@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="projects">
+            <!-- Projects will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script>
+      // JavaScript code to implement infinite scroll
+var page = 1; // Initial page number
+var isLoading = false; // Flag to prevent multiple simultaneous requests
+
+function loadMoreProjects() {
+    // Check if there's already a request in progress
+    if (isLoading) return;
+
+    // Set isLoading to true to prevent concurrent requests
+    isLoading = true;
+
+    // Make an AJAX request to fetch the next page of projects
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'project_feed.php?page=' + page, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Append fetched projects to the project container
+            document.querySelector('.projects').innerHTML += xhr.responseText;
+
+            // Increment page number for the next request
+            page++;
+
+            // Set isLoading back to false now that the request is complete
+            isLoading = false;
+        }
+    };
+    xhr.send();
+}
+
+// Event listener to detect when the user scrolls to the bottom of the page
+window.addEventListener('scroll', function () {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        loadMoreProjects();
+    }
+});
+
+// Initial load of projects when the page loads
+loadMoreProjects();
+
+    </script>
+</body>
+</html>
