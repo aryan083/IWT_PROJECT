@@ -20,6 +20,8 @@ height: 80px;
 margin: 20px;
 border-radius: 16px;
 padding: 0.5rem;
+/* border: solid 1px #77b9ff; */
+box-shadow: inset;
 }
 
 .navbar-toggler{
@@ -79,6 +81,14 @@ color: rgb(66, 66, 66);
 margin-top: 95px;
 margin-left: 20px;
 margin-right: 20px;
-border-radius: 50px;
 
+margin-bottom: 20px;
+
+}
+.left-box{
+    width: 100%;
+    
+}
+.right-box{
+    width: 100%;
 }
