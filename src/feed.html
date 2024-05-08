@@ -1,3 +1,4 @@
+<!-- HTML file with JavaScript -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,96 +53,32 @@
                                     return `<p><a href="${media.file_path}" target="_blank">View Media</a></p>`;
                                 }
                             }).join('')}
-                            <!-- Display like button and counter -->
-                            <button onclick="toggleLike(${post.id})">Like</button>
-                            <span id="like-count-${post.id}">${post.like_count}</span> Likes
-                            <!-- Display comment section -->
-                            <div id="comment-section-${post.id}">
-                                <h3>Comments</h3>
-                                <ul id="comments-${post.id}">
-                                    <!-- Comments will be added here dynamically -->
-                                </ul>
-                                <input type="text" id="comment-input-${post.id}" placeholder="Add a comment...">
-                                <button onclick="addComment(${post.id})">Add Comment</button>
-                            </div>
+                            <!-- Add more post details here -->
+                            
+                         
+                            <p>Like Count: <span id="like-count-<?php echo $postId; ?>"><?php echo $post['like_count']; ?></span></p>
+                            <button class="like-btn" data-post-id="<?php echo $postId; ?>">Like</button>
+                                                        
+                            <h3>Comments</h3>
+
+                            <div id="comments-${post.id}"></div>
+                            <button onclick="fetchComments(${post.id})">Load Comments</button>
+                            <form action="add_comment.php" method="post">
+                                <input type="hidden" name="post_id" value="${post.id}">
+                                <textarea name="comment_text" placeholder="Your Comment" required></textarea>
+                                <button type="submit">Add Comment</button>
+                            </form>
+
+
                         </div>
+
+                           
                     `;
                     feed.appendChild(postElement);
-                    // Fetch comments for the post
-                    fetchComments(post.id);
                 });
                 page++; // Increment page for the next fetch
             })
             .catch(error => console.error('Error fetching posts:', error));
-        }
-
-        // Function to fetch comments for a post
-        function fetchComments(postId) {
-            fetch('fetch_comments.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ post_id: postId })
-            })
-            .then(response => response.json())
-            .then(comments => {
-                const commentsList = document.getElementById(`comments-${postId}`);
-                commentsList.innerHTML = '';
-                comments.forEach(comment => {
-                    const commentItem = document.createElement('li');
-                    commentItem.textContent = `${comment.commenter_name}: ${comment.comment_text}`;
-                    commentsList.appendChild(commentItem);
-                });
-            })
-            .catch(error => console.error('Error fetching comments:', error));
-        }
-
-        // Function to add a comment to a post
-        function addComment(postId) {
-            const commentInput = document.getElementById(`comment-input-${postId}`);
-            const commentText = commentInput.value.trim();
-            if (commentText !== '') {
-                fetch('add_comment.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        post_id: postId,
-                        comment_text: commentText
-                    })
-                })
-                .then(response => response.json())
-                .then(comments => {
-                    const commentsList = document.getElementById(`comments-${postId}`);
-                    commentsList.innerHTML = '';
-                    comments.forEach(comment => {
-                        const commentItem = document.createElement('li');
-                        commentItem.textContent = `${comment.commenter_name}: ${comment.comment_text}`;
-                        commentsList.appendChild(commentItem);
-                    });
-                    commentInput.value = ''; // Clear the comment input field
-                })
-                .catch(error => console.error('Error adding comment:', error));
-            }
-        }
-
-        // Function to toggle like for a post
-        function toggleLike(postId) {
-            fetch('toggle_like.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ post_id: postId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const likeCountElement = document.getElementById(`like-count-${postId}`);
-                likeCountElement.textContent = data.like_count;
-            })
-            .catch(error => console.error('Error toggling like:', error));
         }
 
         // Function to check if user has scrolled to the bottom of the page
@@ -158,6 +95,162 @@
 
         // Initial fetch of posts when the page loads
         fetchPosts();
+        
+        // Function to fetch comments for a specific post
+
+        function fetchComments(postId) {
+            fetch(`fetch_comments.php?post_id=${postId}`)
+            .then(response => response.json())
+            .then(comments => {
+                const commentsContainer = document.getElementById(`comments-${postId}`);
+                commentsContainer.innerHTML = '<h3>Comments</h3>';
+                comments.forEach(comment => {
+                    const commentElement = document.createElement('div');
+                    commentElement.innerHTML = `
+                        <p><strong>User Name :</strong> ${comment.commenter_name}</p>
+                        <p><strong>Comment:</strong> ${comment.comment_text}</p>
+                        
+                    `;
+                    commentsContainer.appendChild(commentElement);
+                });
+            })
+            .catch(error => console.error('Error fetching comments:', error));
+        }
+
+        // Function to add a new comment to a post
+        function addComment(form) {
+            const formData = new FormData(form);
+            fetch('add_comment.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Comment added successfully');
+                    form.reset();
+                    fetchComments(result.post_id); // Reload comments after adding
+                } else {
+                    alert('Error adding comment');
+                }
+            })
+            .catch(error => console.error('Error adding comment:', error));
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get all like buttons
+            var likeButtons = document.querySelectorAll(".like-btn");
+        
+            // Attach click event listener to each like button
+            likeButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    // Get the post ID and like count element
+                    var postId = this.dataset.postId;
+                    var likeCountElement = this.previousElementSibling.firstElementChild;
+        
+                    // Create a new XMLHttpRequest object
+                    var xhr = new XMLHttpRequest();
+        
+                    // Configure the request
+                    xhr.open("POST", "like_post.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        
+                    // Define the request parameters
+                    var params = "post_id=" + encodeURIComponent(postId);
+        
+                    // Define the callback function when the request is completed
+                    xhr.onload = function() {
+                        if (xhr.status === 200) {
+                            // Update the like count on success
+                            likeCountElement.textContent = xhr.responseText;
+                        } else {
+                            // Handle errors
+                            console.error("Request failed. Status: " + xhr.status);
+                        }
+                    };
+        
+                    // Send the request
+                    xhr.send(params);
+                });
+            });
+        });
+
+        function likePost(postId) {
+            fetch('like_feed.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ post_id: postId })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    const likesCount = document.getElementById(`likes-count-${postId}`);
+                    likesCount.textContent = result.likes_count;
+                } else {
+                    alert('Error liking post');
+                }
+            })
+            .catch(error => console.error('Error liking post:', error));
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get all like buttons
+            var likeButtons = document.querySelectorAll(".like-btn");
+        
+            // Attach click event listener to each like button
+            likeButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    // Get the post ID and like count element
+                    var postId = this.dataset.postId;
+                    var likeCountElement = this.previousElementSibling.firstElementChild;
+        
+                    // Create a new XMLHttpRequest object
+                    var xhr = new XMLHttpRequest();
+        
+                    // Configure the request
+                    xhr.open("GET", "like_post.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        
+                    // Define the request parameters
+                    var params = "post_id=" + encodeURIComponent(postId);
+        
+                    // Define the callback function when the request is completed
+                    xhr.onload = function() {
+                        if (xhr.status === 200) {
+                            // Update the like count on success
+                            likeCountElement.textContent = xhr.responseText;
+                        } else {
+                            // Handle errors
+                            console.error("Request failed. Status: " + xhr.status);
+                        }
+                    };
+        
+                    // Send the request
+                    xhr.send(params);
+                });
+            });
+        });
+
+        // Function to fetch the like count for a post
+ function fetchLikeCount(postId) {
+    // Make a fetch request to fetch_like_count.php with the postId as a query parameter
+    fetch(`like_feed.php?post_id=${postId}`)
+        .then(response => response.json()) // Parse the JSON response
+        .then(data => {
+            if (data.success) {
+                // If the request was successful, update the like count in the div element
+                const likeCountElement = document.getElementById(`like-count-${postId}`);
+                likeCountElement.textContent = `Likes: ${data.like_count}`;
+            } else {
+                // If there was an error, log it to the console
+                console.error(data.error);
+            }
+        })
+        .catch(error => console.error('Error fetching like count:', error)); // Catch any fetch errors
+}
+
     </script>
 </body>
 </html>
