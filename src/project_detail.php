@@ -90,7 +90,7 @@ function displayMedia($projectId, $mediaType)
 
         </style>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-     <!-- <link rel="stylesheet" href="front-end/individual-project-files/individual-project-style.css"> -->
+     <link rel="stylesheet" href="front-end/individual-project-files/individual-project-style.css">
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </head>
     <body style="background-color: #6da9e9;">
@@ -119,15 +119,15 @@ function displayMedia($projectId, $mediaType)
         if ($result->num_rows > 0) {
             $project = $result->fetch_assoc();
             echo  $project['title'];
-            if (!empty($project['thumbnail_path'])) {
-                echo '<div class="thumbnail-container">';
-                echo '<img src="' . $project['thumbnail_path'] . '" alt="Thumbnail" class="thumbnail">';
-                echo '</div>';
-            } else {
-                echo '<div class="thumbnail-container">';
-                echo '<p>No thumbnail available for this project.</p>';
-                echo '</div>';
-            }
+            // if (!empty($project['thumbnail_path'])) {
+            //     echo '<div class="thumbnail-container">';
+            //     echo '<img src="' . $project['thumbnail_path'] . '" alt="Thumbnail" class="thumbnail">';
+            //     echo '</div>';
+            // } else {
+            //     echo '<div class="thumbnail-container">';
+            //     echo '<p>No thumbnail available for this project.</p>';
+            //     echo '</div>';
+            // }
 
         } else {
             echo "Project not found.";
@@ -333,6 +333,8 @@ function displayMedia($projectId, $mediaType)
         $stmt->execute();
         $result = $stmt->get_result();
 
+        
+        echo '<div class=" row ">';
 
         // Check if the project exists
         if ($result->num_rows > 0) {
@@ -341,13 +343,15 @@ function displayMedia($projectId, $mediaType)
 
             // echo  $project['start_date'];
 
-            echo '<div class="media-container rounded-3 mt-3">';
+            echo '<div class=" media-container d-flex rounded-3 mt-3">';
             displayMedia($projectId, 'images');
             echo '</div>';
 
         } else {
             echo "Project not found.";
         }
+        echo '</div>';
+
     } else {
         echo "Project ID is not provided.";
     }
