@@ -134,6 +134,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Redirect to a success page or do something else
     echo "Project added successfully!";
-    //header("Location: success.php");
+    header("Location: project_library.php");
     exit();
 }
