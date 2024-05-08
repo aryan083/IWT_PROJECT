@@ -164,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
 
 
 <!-- Profile Picture Section -->
-<div class=" d-flex p-4 mt-5 rounded-5" style="background-color: white; margin:20px"><!-- User Details Section -->
+<div class="  d-flex p-4  rounded-5" style="background-color: white; margin:20px;margin-top:120px"><!-- User Details Section -->
 <div class="row">
     <div class="col-md-8">
     <div class="user-details-section container"></div>
