@@ -2,13 +2,6 @@
 session_start();
 require_once 'dbconnection.php';
 
-if(empty($_SESSION['id'])){
-
-  // If not logged in, redirect to login page
-  header("Location: login-page.html");
-  exit();
-  
-}
 
 ?>
 <!DOCTYPE html>
