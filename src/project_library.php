@@ -10,6 +10,21 @@
     <link rel="stylesheet" href="front-end/add-project-files/add-project-styles.css">
 </head>
 <body>
+
+        <select class="form-select form-select-lg bg-light fs-6 rounded-3" 
+                name="Status" style="margin: 4px; margin-right: 0px;" id="status-filter">
+            <option value="">All Status</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+        </select>
+
+        <input type="text" class="form-control form-control-lg bg-light fs-6 " 
+            placeholder="Search by project title..." name="Search" id="search-input">
+        <button type="button" class="btn btn-primary" onclick="searchProjects()">Search</button>
+
+
+
     <div class="container d -flex justify-content-center align-items-center min-vh-100">
 
         <div class="row border rounded-5 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
@@ -38,5 +53,44 @@
 
     
     </div>
+
+    <div id="project-list">
+  <!-- Project details will be displayed here -->
+</div>
+
+
+    <script>
+    function searchProjects() {
+        var searchText = document.getElementById("search-input").value.toLowerCase();
+
+        // AJAX request to fetch project data
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "search_project.php?search=" + searchText, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var projects = JSON.parse(xhr.responseText);
+                updateProjectList(projects);
+            }
+        };
+        xhr.send();
+    }
+
+
+function updateProjectList(projects) {
+  var projectList = document.getElementById("project-list");
+  projectList.innerHTML = ""; // Clear existing list
+
+  projects.forEach(function (project) {
+    var listItem = document.createElement("li");
+    listItem.classList.add("project");
+    listItem.innerHTML = `
+      <div class="title">${project.title}</div>
+      <div class="status">${project.status}</div>
+      <!-- Add more project details here as needed -->
+    `;
+    projectList.appendChild(listItem);
+  });
+}
+    </script>
 </body>
 </html>
