@@ -11,8 +11,19 @@
 </head>
 <body>
 
-        <select class="form-select form-select-lg bg-light fs-6 rounded-3" 
-                name="Status" style="margin: 4px; margin-right: 0px;" id="status-filter">
+
+
+
+
+    <div class="container  justify-content-center align-items-center min-vh-100">
+        <div class="row border rounded-5 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            
+        <div class="form-control form-control-lg bg-white "style="text-align: center; border: none; margin:10px">
+            <h1><b style="font-weight: 650;">PROJECT LIBRARY</b></h1>
+        </div>
+    </div>
+    <select class="form-select form-select-lg bg-light fs-6 rounded-3" 
+                name="Status" style=" " id="status-filter">
             <option value="">All Status</option>
             <option value="Ongoing">Ongoing</option>
             <option value="Pending">Pending</option>
@@ -22,17 +33,6 @@
         <input type="text" class="form-control form-control-lg bg-light fs-6 " 
             placeholder="Search by project title..." name="Search" id="search-input">
         <button type="button" class="btn btn-primary" onclick="searchProjects()">Search</button>
-
-
-
-    <div class="container d -flex justify-content-center align-items-center min-vh-100">
-
-        <div class="row border rounded-5 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
-
-            <div class="form-control form-control-lg bg-white "style="text-align: center; border: none; margin:10px">
-                <h1><b style="font-weight: 650;">PROJECT LIBRARY</b></h1>
-            </div>
-        </div>
 
 
     
