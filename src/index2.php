@@ -16,6 +16,7 @@ require_once 'dbconnection.php';
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="Calendar/css/style.css">
   <link rel="stylesheet" href="front-end/home-page-files/home-page-styles.css">
+  <link rel="stylesheet" href="front-end/navbar-styles.css">
 
 
 </head>
