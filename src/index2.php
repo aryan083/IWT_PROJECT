@@ -154,6 +154,16 @@ require_once 'dbconnection.php';
   </div>
   </div>
 
+  <div class="bg-white rounded-4  p-4" style="margin: 20px; color: black; text-align: center; font-size: larger; ">
+<h5>"Educators, generals, dieticians, psychologists, and parents program. <br>Armies, students, and some societies are programmed." <br></emp>
+
+
+<div style="text-align: right;margin-right: 20px;display: inline;"><h6 style="display:inline;"><i>- Alan Perlis</i></h6></div>
+
+
+</div>
+
+
   <div class="row text-align-center justify-content-center p-3 w-100">
         <div class="  project-display-project  rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;"><?php
 require_once 'dbconnection.php';

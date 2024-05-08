@@ -139,11 +139,11 @@ function displayMedia($projectId, $mediaType)
   
 
 
-    <div class="container d -flex justify-content-center align-items-center min-vh-100">
+    <div class="container d -flex justify-content-center align-items-center min-vh-100 " style="margin-top:120px">
 
 
    
-    <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+    <div class="row border rounded-3 p-3 bg-white  box-area mb-44 mt-4"style="margin:10px">
 
             <div class="form-control form-control-lg bg-white "style="text-align: center; border: none; margin:10px">
                 <h1><b style="font-weight: 650;">                <?php
@@ -183,7 +183,7 @@ function displayMedia($projectId, $mediaType)
 
             </div>
             </div>
-            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <div class="row border rounded-3 p-3 bg-white  box-area mb-44 mt-4"style="margin:10px">
             <h2><b style="font-weight: 550;text-decoration: underline;">Description</b></h2>
             <h5>    <?php
     // Check if the project ID is provided in the URL
@@ -211,7 +211,7 @@ function displayMedia($projectId, $mediaType)
     }
     ?></h5>
             </div>
-            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4" style="margin:10px">
+            <div class="row border rounded-3 p-3 bg-white  box-area mb-44 mt-4" style="margin:10px">
         <h2><b style="font-weight: 550;text-decoration: underline;">Contributors</b></h2>
         <table class="table">
             <thead>
@@ -243,7 +243,7 @@ function displayMedia($projectId, $mediaType)
             </tbody>
         </table>
     </div>
-    <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4" style="margin:10px">
+    <div class="row border rounded-3 p-3 bg-white  box-area mb-44 mt-4" style="margin:10px">
         <h2><b style="font-weight: 550;text-decoration: underline;">Faculty</b></h2>
         <table class="table">
             <thead>
@@ -274,7 +274,7 @@ function displayMedia($projectId, $mediaType)
             </tbody>
         </table>
     </div>
-            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <div class="row border rounded-3 p-3 bg-white box-area mb-44 mt-4"style="margin:10px">
             <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Start Date</b></h2>
             <h5 style="display: inline;">    <?php
     // Check if the project ID is provided in the URL
@@ -303,7 +303,7 @@ function displayMedia($projectId, $mediaType)
     }
     ?></h5>
             </div>
-            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <div class="row border rounded-3 p-3 bg-white  box-area mb-44 mt-4"style="margin:10px">
             <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">End Date</b></h2>
             <h5 style="display: inline;">   <?php
     // Check if the project ID is provided in the URL
@@ -332,7 +332,7 @@ function displayMedia($projectId, $mediaType)
     }
     ?></h5>
             </div>
-            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <div class="row border rounded-3 p-3 bg-white  box-area mb-44 mt-4"style="margin:10px">
             <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Status</b></h2>
             <h5 style="display: inline;">   <?php
     // Check if the project ID is provided in the URL
@@ -362,7 +362,7 @@ function displayMedia($projectId, $mediaType)
     ?>
     </h5>
             </div>
-            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <div class="row border rounded-3 p-3 bg-white  box-area mb-44 mt-4"style="margin:10px">
             <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Photos</b></h2>
             <h5 style="display: inline;">   <?php
     // Check if the project ID is provided in the URL
@@ -401,7 +401,7 @@ function displayMedia($projectId, $mediaType)
     }
     ?></h5>
             </div>
-            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <div class="row border rounded-3 p-3 bg-white  box-area mb-44 mt-4"style="margin:10px">
             <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Videos</b></h2>
             <h5 style="display: inline;"><?php
     // Check if the project ID is provided in the URL
@@ -434,7 +434,7 @@ function displayMedia($projectId, $mediaType)
     }
     ?></h5>
             </div>
-            <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
+            <div class="row border rounded-3 p-3 bg-white box-area mb-44 mt-4"style="margin:10px">
             <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Documents</b></h2>
             <h5 style="display: inline;"><?php
     // Check if the project ID is provided in the URL
