@@ -140,17 +140,25 @@
             </div>
           </div>
         </div>
+        
+      </div>
     </div>
-
-  </div>
-  </div>
-
-
-
-  <div class="stats">
+    
+    <!-- <div class="container w-100"> -->
+      <div class="row text-align-center justify-content-center p-3 w-100">
+        <div class="  project-display-project  rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;">Lorem ipsum, dolor sit  </div>
+        <div class="  project-display-parent  rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;">Lorem ipsum, dolor sit  </div>
+        <div class="  project-display-student  rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;">Lorem ipsum, dolor sit  </div>
+        <div class="  project-display-faculty rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;">Lorem ipsum, dolor sit  </div>
+        <div class="  project-display-collaborators  rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;">Lorem ipsum, dolor sit  </div>
+      </div>
+    </div>
+    
+    <div class="stats">
+      
+    </div>
     
   </div>
-
 
 
 
@@ -203,7 +211,7 @@ async function updateStats() {
       const response = await fetch('stats_count.php');
       const data = await response.json();
       // Update the HTML content of the stats div with the fetched data
-      document.querySelector('.stats').innerHTML = `
+      document.querySelector('.stats').innerText = `
           <h1>Statistics</h1>
           <p>Projects Done: ${data.project_count}</p>
           <p>Parents Registered: ${data.parent_count}</p>

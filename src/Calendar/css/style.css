@@ -512,7 +512,9 @@ pre {
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
   width: auto;
-  max-width: 100%; }
+  max-width: 100%; 
+  color: black;
+}
 
 .col-1 {
   -webkit-box-flex: 0;

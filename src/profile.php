@@ -113,36 +113,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <!-- Add your CSS styles here -->
-    <style>
-        /* Add your CSS styles for profile picture, form, etc. */
-    </style>
-</head>
-<body>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<body style='background-color: #6da9e9;'>
+
+
 
 <!-- Profile Picture Section -->
-<div class="profile-pic-section">
-    <?php if (!empty($profilePic)) : ?>
-        <!-- Display uploaded profile picture -->
-        <img src="<?php echo $profilePic; ?>" alt="Profile Picture">
-    <?php else : ?>
-        <!-- Display default profile picture or a placeholder image -->
-        <img src="default-profile-pic.jpg" alt="Default Profile Picture">
-    <?php endif; ?>
-    <!-- Option to upload a new profile picture -->
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-        <input type="file" name="profile_pic" accept="image/*">
-        <button type="submit">Upload Profile Picture</button>
-    </form>
-</div>
-
-<!-- User Details Section -->
-<div class="user-details-section">
-    <h1><?php echo $username; ?></h1>
-    <p>Email: <?php echo $email; ?></p>
-    <p>ID: <?php echo $_SESSION['id']; ?></p>
+<div class=" d-flex p-4 mt-5 rounded-5" style="background-color: white; margin:20px"><!-- User Details Section -->
+<div class="row">
+    <div class="col-md-8">
+    <div class="user-details-section container"></div>
+    <div class="align-items-center justify-content-center mt-3" style="align-items:center;"><h1><?php echo $username; ?></h1></div>
+    <div class="mt-3"><p><b>Email:</b> <?php echo $email; ?></p></div>
+    <div class="mt-3"><p> <b>ID:</b> <br> <?php echo $_SESSION['id']; ?></p></div>
     <!-- Add more user details here -->
 </div>
+</div>
+
+</div>
+</div>
+
+<div class=" d-flex p-4 mt-5 rounded-5" style="background-color: white; margin:20px"><!-- User Details Section -->
+
 
 <!-- User Posts Section -->
 <div class="user-posts-section">
@@ -216,9 +209,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
         <p>No posts found.</p>
     <?php endif; ?>
 </div>
+</div>
+
+
 
 <!-- Add your HTML structure and styles for other user details -->
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
 <script>
 
 // Function to add a comment to a post
@@ -303,3 +301,5 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </body>
 </html>
+
+
