@@ -306,7 +306,8 @@ function displayMedia($projectId, $mediaType)
     } else {
         echo "Project ID is not provided.";
     }
-    ?></h5>
+    ?>
+    </h5>
             </div>
             <div class="row border rounded-3 p-3 bg-white shadow box-area mb-44 mt-4"style="margin:10px">
             <h2><b style="font-weight: 550;text-decoration: underline; display: inline;">Photos</b></h2>
@@ -407,14 +408,6 @@ function displayMedia($projectId, $mediaType)
     }
     ?></h5>
             </div>
-
-
-
-
-
-
-
-
     </div>
 
 
