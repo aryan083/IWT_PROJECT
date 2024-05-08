@@ -220,32 +220,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
 <!-- Add your HTML structure and styles for other user details -->
 
 <script>
-// Function to like a post
-function likePost(postId) {
-    // Send AJAX request to like the post
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "like_post.php", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            // Check if the response indicates success or failure
-            if (xhr.responseText.startsWith("Like") || xhr.responseText.startsWith("Unlike")) {
-                // Update the like count span on the page if the operation was successful
-                var likeCountSpan = document.getElementById("like-count-" + postId);
-                if (likeCountSpan) {
-                    // Extract the updated like count from the response
-                    var updatedLikeCount = parseInt(xhr.responseText.split(":")[1]);
-                    // Update the like count span with the updated value
-                    likeCountSpan.innerHTML = updatedLikeCount;
-                }
-            } else {
-                // Handle other types of responses (e.g., error messages)
-                console.error("Error: " + xhr.responseText);
-            }
-        }
-    };
-    xhr.send("post_id=" + postId);
-}
 
 // Function to add a comment to a post
 function commentOnPost(postId) {
@@ -266,6 +240,28 @@ function commentOnPost(postId) {
         xhr.send("post_id=" + postId + "&comment_text=" + encodeURIComponent(commentText));
     }
 }
+
+// Function to like a post
+function likePost(postId) {
+    fetch('like_feed.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ post_id: postId })
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            const likesCount = document.getElementById(`likes-count-${postId}`);
+            likesCount.textContent = result.likes_count;
+        } else {
+            alert('Error liking post');
+        }
+    })
+    .catch(error => console.error('Error liking post:', error));
+}
+
 
 document.addEventListener("DOMContentLoaded", function() {
     // Get all like buttons

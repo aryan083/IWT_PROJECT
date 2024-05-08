@@ -62,4 +62,3 @@ if ($resultLikeCount->num_rows > 0) {
     echo "Error: Unable to like the post";
 }
 
-?>
