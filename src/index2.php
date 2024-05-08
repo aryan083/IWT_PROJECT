@@ -13,7 +13,6 @@ require_once 'dbconnection.php';
   <title>Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="Calendar/css/style.css">
   <link rel="stylesheet" href="front-end/home-page-files/home-page-styles.css">
@@ -151,18 +150,275 @@ require_once 'dbconnection.php';
   </div>
   </div>
 
+  <div class="row text-align-center justify-content-center p-3 w-100">
+        <div class="  project-display-project  rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;"><?php
+require_once 'dbconnection.php';
+
+// Query to get count of 'id' in projects_collaborators table
+$sql_collaborators = "SELECT COUNT(id) AS collaborators_count FROM projects_collaborators";
+$result_collaborators = $conn->query($sql_collaborators);
+$row_collaborators = $result_collaborators->fetch_assoc();
+$collaborators_count = $row_collaborators['collaborators_count'];
+
+// Query to get count of 'id' in projects_faculty table
+$sql_faculty = "SELECT COUNT(id) AS faculty_count FROM projects_faculty";
+$result_faculty = $conn->query($sql_faculty);
+$row_faculty = $result_faculty->fetch_assoc();
+$faculty_count = $row_faculty['faculty_count'];
 
 
-  <div class="stats">
-    <?php include 'stats_count.php'; ?>
-    
-  </div>
+$sql= "SELECT COUNT(parent_id) as parent_count FROM spms_parent";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$parent_count = $row['parent_count'];
+
+$sql= "SELECT COUNT(id) as project_count FROM spms_projects";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$project_count = $row['project_count'];
+
+$sql= "SELECT COUNT(faculty_id_Employee_code) as faculty_count FROM spms_faculty";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$faculty_count = $row['faculty_count'];
+
+$sql= "SELECT COUNT(student_enrollment_number ) as student_count FROM spms_student";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$student_count = $row['student_count'];
+
+
+
+// Close connection
+
+
+//Output counts
+
+echo "Projects Done : " . $project_count . "<br>";
+// echo "Parents Registered " . $parent_count . "<br>";
+// echo "Student Registered " . $student_count . "<br>";
+// echo "Faculties Registered " . $faculty_count . "<br>";
+// echo "Total Project Collaborators " . $collaborators_count . "<br>";
+// echo "Faculties Active in the Projects " . $faculty_count . "<br>";
+
+?> </div>
+        <div class="  project-display-parent  rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;"><?php
+require_once 'dbconnection.php';
+
+// Query to get count of 'id' in projects_collaborators table
+$sql_collaborators = "SELECT COUNT(id) AS collaborators_count FROM projects_collaborators";
+$result_collaborators = $conn->query($sql_collaborators);
+$row_collaborators = $result_collaborators->fetch_assoc();
+$collaborators_count = $row_collaborators['collaborators_count'];
+
+// Query to get count of 'id' in projects_faculty table
+$sql_faculty = "SELECT COUNT(id) AS faculty_count FROM projects_faculty";
+$result_faculty = $conn->query($sql_faculty);
+$row_faculty = $result_faculty->fetch_assoc();
+$faculty_count = $row_faculty['faculty_count'];
+
+
+$sql= "SELECT COUNT(parent_id) as parent_count FROM spms_parent";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$parent_count = $row['parent_count'];
+
+$sql= "SELECT COUNT(id) as project_count FROM spms_projects";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$project_count = $row['project_count'];
+
+$sql= "SELECT COUNT(faculty_id_Employee_code) as faculty_count FROM spms_faculty";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$faculty_count = $row['faculty_count'];
+
+$sql= "SELECT COUNT(student_enrollment_number ) as student_count FROM spms_student";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$student_count = $row['student_count'];
+
+
+
+// Close connection
+
+
+//Output counts
+
+// echo "Projects Done: " . $project_count . "<br>";
+echo "Parents Registered :  " . $parent_count . "<br>";
+// echo "Student Registered " . $student_count . "<br>";
+// echo "Faculties Registered " . $faculty_count . "<br>";
+// echo "Total Project Collaborators " . $collaborators_count . "<br>";
+// echo "Faculties Active in the Projects " . $faculty_count . "<br>";
+
+?> </div>
+
+        <div class="  project-display-parent  rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;"><?php
+require_once 'dbconnection.php';
+
+// Query to get count of 'id' in projects_collaborators table
+$sql_collaborators = "SELECT COUNT(id) AS collaborators_count FROM projects_collaborators";
+$result_collaborators = $conn->query($sql_collaborators);
+$row_collaborators = $result_collaborators->fetch_assoc();
+$collaborators_count = $row_collaborators['collaborators_count'];
+
+// Query to get count of 'id' in projects_faculty table
+$sql_faculty = "SELECT COUNT(id) AS faculty_count FROM projects_faculty";
+$result_faculty = $conn->query($sql_faculty);
+$row_faculty = $result_faculty->fetch_assoc();
+$faculty_count = $row_faculty['faculty_count'];
+
+
+$sql= "SELECT COUNT(parent_id) as parent_count FROM spms_parent";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$parent_count = $row['parent_count'];
+
+$sql= "SELECT COUNT(id) as project_count FROM spms_projects";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$project_count = $row['project_count'];
+
+$sql= "SELECT COUNT(faculty_id_Employee_code) as faculty_count FROM spms_faculty";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$faculty_count = $row['faculty_count'];
+
+$sql= "SELECT COUNT(student_enrollment_number ) as student_count FROM spms_student";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$student_count = $row['student_count'];
+
+
+
+// Close connection
+
+
+//Output counts
+
+// echo "Projects Done: " . $project_count . "<br>";
+// echo "Parents Registered " . $parent_count . "<br>";
+echo "Student Registered : " . $student_count . "<br>";
+// echo "Faculties Registered " . $faculty_count . "<br>";
+// echo "Total Project Collaborators " . $collaborators_count . "<br>";
+
+?> </div>
+       
+        <div class="  project-display-parent  rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;"><?php
+require_once 'dbconnection.php';
+
+// Query to get count of 'id' in projects_collaborators table
+$sql_collaborators = "SELECT COUNT(id) AS collaborators_count FROM projects_collaborators";
+$result_collaborators = $conn->query($sql_collaborators);
+$row_collaborators = $result_collaborators->fetch_assoc();
+$collaborators_count = $row_collaborators['collaborators_count'];
+
+// Query to get count of 'id' in projects_faculty table
+$sql_faculty = "SELECT COUNT(id) AS faculty_count FROM projects_faculty";
+$result_faculty = $conn->query($sql_faculty);
+$row_faculty = $result_faculty->fetch_assoc();
+$faculty_count = $row_faculty['faculty_count'];
+
+
+$sql= "SELECT COUNT(parent_id) as parent_count FROM spms_parent";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$parent_count = $row['parent_count'];
+
+$sql= "SELECT COUNT(id) as project_count FROM spms_projects";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$project_count = $row['project_count'];
+
+$sql= "SELECT COUNT(faculty_id_Employee_code) as faculty_count FROM spms_faculty";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$faculty_count = $row['faculty_count'];
+
+$sql= "SELECT COUNT(student_enrollment_number ) as student_count FROM spms_student";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$student_count = $row['student_count'];
+
+
+
+// Close connection
+
+
+//Output counts
+
+// echo "Projects Done: " . $project_count . "<br>";
+// echo "Parents Registered " . $parent_count . "<br>";
+// echo "Student Registered " . $student_count . "<br>";
+// echo "Faculties Registered " . $faculty_count . "<br>";
+echo "Total Project Collaborators : " . $collaborators_count . "<br>";
+// echo "Faculties Active in the Projects " . $faculty_count . "<br>";
+
+?>  </div>
+
+        <div class="  project-display-parent  rounded-3 bg-white p-3 col-md-auto  mb-2 text-align-center" style="margin: 10px;margin-top: 0px;"><?php
+require_once 'dbconnection.php';
+
+// Query to get count of 'id' in projects_collaborators table
+$sql_collaborators = "SELECT COUNT(id) AS collaborators_count FROM projects_collaborators";
+$result_collaborators = $conn->query($sql_collaborators);
+$row_collaborators = $result_collaborators->fetch_assoc();
+$collaborators_count = $row_collaborators['collaborators_count'];
+
+// Query to get count of 'id' in projects_faculty table
+$sql_faculty = "SELECT COUNT(id) AS faculty_count FROM projects_faculty";
+$result_faculty = $conn->query($sql_faculty);
+$row_faculty = $result_faculty->fetch_assoc();
+$faculty_count = $row_faculty['faculty_count'];
+
+
+$sql= "SELECT COUNT(parent_id) as parent_count FROM spms_parent";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$parent_count = $row['parent_count'];
+
+$sql= "SELECT COUNT(id) as project_count FROM spms_projects";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$project_count = $row['project_count'];
+
+$sql= "SELECT COUNT(faculty_id_Employee_code) as faculty_count FROM spms_faculty";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$faculty_count = $row['faculty_count'];
+
+$sql= "SELECT COUNT(student_enrollment_number ) as student_count FROM spms_student";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$student_count = $row['student_count'];
+
+
+
+// Close connection
+
+
+//Output counts
+
+// echo "Projects Done: " . $project_count . "<br>";
+// echo "Parents Registered " . $parent_count . "<br>";
+// echo "Student Registered " . $student_count . "<br>";
+echo "Faculties Registered : " . $faculty_count . "<br>";
+// echo "Total Project Collaborators " . $collaborators_count . "<br>";
+// echo "Faculties Active in the Projects " . $faculty_count . "<br>";
+
+?> </div>
+      </div>
+    </div>
 
 
 
 
 
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
