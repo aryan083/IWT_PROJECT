@@ -79,7 +79,9 @@ if ($result->num_rows > 0) {
 
         // Fetch and display photos
         $photos = glob("uploads/project/" . $row['id'] . "/images/*.*");
+        
         foreach ($photos as $photo) {
+
             echo "<img class='rounded-5' src='" . $photo . "' alt='Photo'>";
         }
 
@@ -115,4 +117,4 @@ if ($result->num_rows > 0) {
 
 // Close database connection
 $conn->close();
-?>
+
