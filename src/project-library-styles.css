@@ -19,7 +19,7 @@ body {
 
 .project {
     border: 1px solid #ccc;
-    padding: 10px;
+    /* padding: px; */
 }
 
 .project a {
@@ -28,8 +28,15 @@ body {
 }
 
 .thumbnail {
-    width: 100%;
-    height: auto;
+    /* width: 20vh; */
+    height: 200px;
+}
+h2{
+    position: relative;
+}
+.thumbnail-title{
+
+    font-size: 20px;
 }
 
 /* Additional Styles (add as needed) */
