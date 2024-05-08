@@ -40,6 +40,7 @@ $student_count = $row['student_count'];
 $conn->close();
 
 //Output counts
+
 echo "Projects Done: " . $project_count . "<br>";
 echo "Parents Registered " . $parent_count . "<br>";
 echo "Student Registered " . $student_count . "<br>";
@@ -47,11 +48,4 @@ echo "Faculties Registered " . $faculty_count . "<br>";
 echo "Total Project Collaborators " . $collaborators_count . "<br>";
 echo "Faculties Active in the Projects " . $faculty_count . "<br>";
 
-    
-    // <h1>Statistics</h1>
-    // <p>Projects Done: <?php echo $project_count; ?></p>
-    // <p>Parents Registered: <?php echo $parent_count; ?></p>
-    // <p>Student Registered: <?php echo $student_count; ?></p>
-    // <p>Faculties Registered: <?php echo $faculty_count; ?></p>
-    // <p>Total Project Collaborators: <?php echo $collaborators_count; ?></p>
-    // <p>Faculties Active in the Projects: <?php echo $faculty_count; ?></p>
+?>
