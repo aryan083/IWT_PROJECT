@@ -1,0 +1,28 @@
+body{
+    background-color: #6da9e9;
+
+}
+#project-title{
+
+    text-align: center;
+    font-weight: 600;
+    text-shadow: black;
+    margin-bottom: 40px;
+}
+img{
+    position: relative;
+    width: 100%;
+    border-radius: 100px;
+    margin: 20px;
+}
+
+.content {
+    overflow: none;
+    width: 100%;
+    max-width: 100%;
+    padding: 0px 0;
+    height: 100%;
+    position: relative;
+    margin: 1px;
+
+ }

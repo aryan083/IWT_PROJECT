@@ -8261,7 +8261,7 @@ h1, h2, h3, h4, h5,
 .calendar-container {
   position: relative;
   border: solid 10px #6da9e9;
-  border-right-width:0px ;
+  border-right-width:10px ;
   border-top-left-radius : 30px ;
   border-bottom-left-radius: 30px;
   /* border-bottom-left-radius : 20px ; */
