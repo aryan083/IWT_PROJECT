@@ -1,3 +1,13 @@
+<?php
+require_once 'dbconnection.php';
+
+if(empty($_SESSION['user_id'])){
+    header('Location: login-page.html');
+    exit;
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,6 +158,7 @@
 
 
   <div class="stats">
+    <?php include 'stats_count.php'; ?>
     
   </div>
 
@@ -198,28 +209,8 @@ function addEvent(name, description, date) {
 
 }
 
-async function updateStats() {
-  try {
-      const response = await fetch('stats_count.php');
-      const data = await response.json();
-      // Update the HTML content of the stats div with the fetched data
-      document.querySelector('.stats').innerHTML = `
-          <h1>Statistics</h1>
-          <p>Projects Done: ${data.project_count}</p>
-          <p>Parents Registered: ${data.parent_count}</p>
-          <p>Students Registered: ${data.student_count}</p>
-          <p>Faculties Registered: ${data.faculty_count}</p>
-          <p>Total Project Collaborators: ${data.collaborators_count}</p>
-          <p>Faculties Active in the Projects: ${data.faculty_count}</p>
-      `;
-  } catch (error) {
-      console.error('Error fetching statistics:', error);
-      // Optionally, display an error message or perform other actions
-  }
-}
 
-// Call the function to update statistics when the page loads
-updateStats();
+
 
 
 
