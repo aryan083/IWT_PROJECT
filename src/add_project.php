@@ -125,10 +125,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bind_param("isss", $projectId, $fileName, $fileExtension, $destination);
             $stmt->execute();
         }
+          // Check if a thumbnail file is uploaded
+          if ($_FILES['Thumbnail']['error'] === UPLOAD_ERR_OK) {
+            // Handle thumbnail file upload
+            $thumbnailName = $_FILES['Thumbnail']['name'];
+            $thumbnailTmpName = $_FILES['Thumbnail']['tmp_name'];
+            $thumbnailExtension = strtolower(pathinfo($thumbnailName, PATHINFO_EXTENSION));
+        
+            // Directory to save the thumbnail inside the project folder
+            $thumbnailDirectory = 'uploads/project/' . $projectId . '/thumbnails/';
+        
+            // Create thumbnails directory if it doesn't exist
+            if (!file_exists($thumbnailDirectory)) {
+                mkdir($thumbnailDirectory, 0777, true);
+            }
+        
+            // Generate a unique name for the thumbnail file
+            $thumbnailFileName = uniqid('thumbnail_') . '.' . $thumbnailExtension;
+        
+            // Move uploaded thumbnail file to the destination directory
+            $thumbnailDestination = $thumbnailDirectory . $thumbnailFileName;
+            move_uploaded_file($thumbnailTmpName, $thumbnailDestination);
+        } else {
+            // If no thumbnail is uploaded, set default values
+            $thumbnailFileName = ''; // Set to an empty string or any default thumbnail
+            $thumbnailExtension = ''; // Set to an empty string or any default thumbnail extension
+            $thumbnailDestination = ''; // Set to an empty string or any default thumbnail path
+        }
+        
+        // Insert thumbnail data into spms_projects table
+        $insertThumbnailQuery = "UPDATE spms_projects SET thumbnail_name = ?, thumbnail_extension = ?, thumbnail_path = ? WHERE id = ?";
+        $stmt = $conn->prepare($insertThumbnailQuery);
+        $stmt->bind_param("sssi", $thumbnailFileName, $thumbnailExtension, $thumbnailDestination, $projectId);
+        $stmt->execute();
     }
-    // Close prepared statement
-    $stmt->close();
-
+  
     // Close database connection
     $conn->close();
 
