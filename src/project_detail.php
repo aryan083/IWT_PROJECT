@@ -119,6 +119,15 @@ function displayMedia($projectId, $mediaType)
         if ($result->num_rows > 0) {
             $project = $result->fetch_assoc();
             echo  $project['title'];
+            if (!empty($project['thumbnail_path'])) {
+                echo '<div class="thumbnail-container">';
+                echo '<img src="' . $project['thumbnail_path'] . '" alt="Thumbnail" class="thumbnail">';
+                echo '</div>';
+            } else {
+                echo '<div class="thumbnail-container">';
+                echo '<p>No thumbnail available for this project.</p>';
+                echo '</div>';
+            }
 
         } else {
             echo "Project not found.";
@@ -324,9 +333,11 @@ function displayMedia($projectId, $mediaType)
         $stmt->execute();
         $result = $stmt->get_result();
 
+
         // Check if the project exists
         if ($result->num_rows > 0) {
             $project = $result->fetch_assoc();
+            
 
             // echo  $project['start_date'];
 
