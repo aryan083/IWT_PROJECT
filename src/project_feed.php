@@ -20,8 +20,13 @@ $result = $stmt->get_result();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // Output project details in HTML format
-        echo "<div class='project-container'>";
-        echo "<h2>" . $row['title'] . "</h2>";
+        echo "<div class='project-container container  justify-content-center   bg-white p-5 w-100 mt-5 rounded-5' >";
+        
+        echo "<h2 id='project-title' class='fs-1'>" . $row['title'] . "</h2>";
+        echo "<div class = 'row mt-3'>";
+        
+        echo "<div class = 'col-md-6'";
+
         echo "<p><b>Description:</b> " . $row['description'] . "</p>";
         echo "<p><b>Start Date:</b> " . $row['start_date'] . "</p>";
         echo "<p><b>End Date:</b> " . $row['end_date'] . "</p>";
@@ -57,14 +62,25 @@ if ($result->num_rows > 0) {
             echo "</p>";
         }
 
+
+        echo "</div>";
+        echo "<div class = 'col-md-6'";
+
+
+        
+        
+        echo "</div>";
+
+       
+
         // Display photos, videos, and documents here
         echo "<p><b>Media Files:</b><br>";
-        echo "<div class='media-container'>";
+        echo "<div class='media-container content p-3 w-100'>";
 
         // Fetch and display photos
         $photos = glob("uploads/project/" . $row['id'] . "/images/*.*");
         foreach ($photos as $photo) {
-            echo "<img src='" . $photo . "' alt='Photo'>";
+            echo "<img class='rounded-5' src='" . $photo . "' alt='Photo'>";
         }
 
         // Fetch and display videos
@@ -89,6 +105,8 @@ if ($result->num_rows > 0) {
         echo "</div>";
         echo "</p>";
 
+        echo "</div>";
+        echo "</div>";
         echo "</div>";
     }
 } else {
