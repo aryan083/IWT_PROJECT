@@ -11,16 +11,17 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="Calendar/css/style.css">
   <link rel="stylesheet" href="front-end/home-page-files/home-page-styles.css">
+  <link rel="stylesheet" href="front-end/navbar-styles.css">
 
 
 </head>
 
 <body style="background-color: #6da9e9">
 
-  <nav class="navbar shadow navbar-expand-lg fixed-top">
+  <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand me-auto fs-3" id="spmsbranding" href="index.html">SPMS</a>
-
+      <a class="navbar-brand me-auto fs-3" id = "spmsbranding" href="#">SPMS</a>
+     
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="spmsbranding">SPMS</h5>
@@ -29,28 +30,27 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link mx-lg-2 active" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link mx-lg-2 active" aria-current="page" href="index2.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="project_feed.html">Feed</a>
+              <a class="nav-link mx-lg-2" href="project_feed.php">Feed</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="project_library.php">Library</a>
+                <a class="nav-link mx-lg-2" href="project_library.php">Library</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="add_project.html">Add Project</a>
+                <a class="nav-link mx-lg-2" href="add_project.html">Add Project</a>
             </li>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="about.html">About</a>
+                <a class="nav-link mx-lg-2" href="about.html">About</a>
             </li>
 
           </ul>
         </div>
       </div>
       <a href="login-page.html" class="login-button ">Login</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="offcanvasNavbar"
-        aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
@@ -211,7 +211,7 @@ async function updateStats() {
       const response = await fetch('stats_count.php');
       const data = await response.json();
       // Update the HTML content of the stats div with the fetched data
-      document.querySelector('.stats').innerText = `
+      document.querySelector('.stats').innerHTML = `
           <h1>Statistics</h1>
           <p>Projects Done: ${data.project_count}</p>
           <p>Parents Registered: ${data.parent_count}</p>
