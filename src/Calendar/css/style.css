@@ -8226,7 +8226,7 @@ h1, h2, h3, h4, h5,
 .event-card {
   padding: 20px 0;
   max-width: 100%;
-  display: block;
+  display: relative;
   background: #fff;
   border: none !important;
   margin: 20px;
@@ -8236,11 +8236,13 @@ h1, h2, h3, h4, h5,
     .event-card {
       margin: 20px;
       margin-bottom: 20px;
+      opacity: 0;
     } }
   @media (max-width: 767.98px) {
     .event-card {
       margin-bottom: 20px;
-      background: #e6e6e6; } }
+      background: #e6e6e6; 
+    opacity: 0;} }
 
 .event-count, .event-name, .event-cancelled {
   display: inline;
