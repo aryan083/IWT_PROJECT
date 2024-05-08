@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2024 at 01:27 PM
+-- Generation Time: May 08, 2024 at 04:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -120,28 +120,28 @@ CREATE TABLE `projects_media_files` (
 -- Table structure for table `spms_faculty`
 --
 
-  CREATE TABLE `spms_faculty` (
-    `name` varchar(255) NOT NULL,
-    `faculty_id_Employee_code` bigint(11) NOT NULL,
-    `email` varchar(255) NOT NULL,
-    `faculty_password` varchar(255) NOT NULL,
-    `profile_pic` varchar(200) DEFAULT NULL
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `spms_faculty` (
+  `name` varchar(255) NOT NULL,
+  `faculty_id_Employee_code` bigint(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `faculty_password` varchar(255) NOT NULL,
+  `profile_pic` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-  -- --------------------------------------------------------
+-- --------------------------------------------------------
 
-  --
-  -- Table structure for table `spms_parent`
-  --
+--
+-- Table structure for table `spms_parent`
+--
 
-  CREATE TABLE `spms_parent` (
-    `parent_id` bigint(11) NOT NULL,
-    `name` varchar(255) NOT NULL,
-    `child_enrollment_id` int(11) NOT NULL,
-    `email` varchar(255) NOT NULL,
-    `parent_password` varchar(255) NOT NULL,
-    `profile_pic` varchar(200) DEFAULT NULL
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE `spms_parent` (
+  `parent_id` bigint(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `child_enrollment_id` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `parent_password` varchar(255) NOT NULL,
+  `profile_pic` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -171,7 +171,11 @@ CREATE TABLE `spms_projects` (
   `status` enum('Ongoing','Completed','Pending') NOT NULL,
   `instructions` text DEFAULT NULL,
   `outcomes` text DEFAULT NULL,
-  `recognitions` text DEFAULT NULL
+  `recognitions` text DEFAULT NULL,
+  `thumbnail_name` varchar(100) NOT NULL,
+  `thumbnail_extension` varchar(5) NOT NULL,
+  `thumbnail_path` varchar(150) NOT NULL,
+  `remarks` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
