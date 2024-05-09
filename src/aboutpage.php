@@ -1,14 +1,30 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Post</title>
+    <title>About Page</title>
     <link rel="stylesheet" href="front-end/navbar-styles.css">
+    <style>
+        h1 {
+            text-align: center;
+            margin-top: 100px;
+        }
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
     <link rel="stylesheet" href="front-end/home-page-files/home-page-styles.css">
   
+
 </head>
 <body>
+    <!-- write code for about page -->
+    
     <nav class="navbar shadow navbar-expand-lg fixed-top">
         <div class="container-fluid">
           <a class="navbar-brand me-auto fs-3" id="spmsbranding" href="index.html">SPMS</a>
@@ -40,35 +56,25 @@
               </ul>
             </div>
           </div>
-            <a href="profile.php" class="login-button">Profile</a>
+          <?php if (isset($_SESSION['email'])): ?>
+                <a href="profile.php" class="login-button">Profile</a>
+            <?php else: ?>
+                <a href="login-page.html" class="login-button">Login</a>
+            <?php endif; ?>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
         </div>
       </nav>
-      
+     
 
-<form action="create_post.php" method="post" enctype="multipart/form-data">
-    <h2>Create a Post</h2>
-    <label for="caption">Caption:</label><br>
-    <textarea id="caption" name="caption" rows="4" cols="50" required></textarea><br><br>
+    <h1>About Page</h1>
+    <p>This is the about page of the SPMS project.</p>
+    <p>SPMS stands for Student Project Management System.</p>
+    <p>It is a platform where students can share their projects with others.</p>
+
+
     
-    <label for="media">Upload Media (up to 10 files):</label><br>
-    <input type="file" id="media" name="media[]" accept="image/*,video/*" multiple required><br><br>
-
-    <button type="submit">Create Post</button>
-</form>
-
-<script>
-    // JavaScript to restrict the number of uploaded files
-    document.getElementById("media").addEventListener("change", function() {
-        var files = this.files;
-        if (files.length > 10) {
-            alert("You can only upload a maximum of 10 files.");
-            this.value = ""; // Clear the selected files
-        }
-    });
-</script>
 
 </body>
 <footer>

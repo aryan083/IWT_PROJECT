@@ -116,6 +116,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["profile_pic"])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="front-end/navbar-styles.css">
+    <link rel="stylesheet" href="front-end/home-page-files/home-page-styles.css">
+  
 <body style='background-color: #6da9e9;'>
 
 <nav class="navbar shadow navbar-expand-lg fixed-top">
@@ -344,6 +346,18 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 </body>
+<footer>
+
+  <div class="footer">
+
+    <br>
+    Copyrights of Aryan Mahida , Umang Hirani and Shantanusinh Parmar
+    <br>
+    <br>
+  </div>
+
+</footer>
+
 </html>
 
 
