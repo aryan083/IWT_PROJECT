@@ -50,12 +50,7 @@
     </style>
 </head>
 <body>
-    <?php
-      
-        // Query to fetch leaderboard data
-        $sql = "SELECT name, COUNT(id) AS project_count, RANK() OVER (ORDER BY COUNT(id) DESC) AS player_rank FROM spms_projects GROUP BY name";
-        $result = $conn->query($sql);
-    ?>
+
 
     <div class="leaderboard-section" style="text-align: center; padding: 40px; border-radius: 20px; box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;">
         <div class="outer-container" style="background-color: #6da9e9; border-radius: 50%; width: 300px; height: 300px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;"></div>

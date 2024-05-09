@@ -438,6 +438,7 @@ echo "Faculties Registered : " . $faculty_count . "<br>";
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <script src="Calendar/js/main.js"></script>
+  <link rel="stylesheet" href="front-end/navbar-styles.css">
   <script>
     
 function callEvent() {

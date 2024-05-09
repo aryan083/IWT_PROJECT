@@ -9,6 +9,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="front-end/add-project-files/add-project-styles.css">
     <link rel="stylesheet" href="front-end/navbar-styles.css">
+    <link rel="stylesheet" href="front-end/home-page-files/home-page-styles.css">
+  
 </head>
 <body>
 <nav class="navbar shadow navbar-expand-lg fixed-top">
@@ -117,4 +119,18 @@
     </script>
 
 </body>
+
+<footer>
+
+  <div class="footer">
+
+    <br>
+    Copyrights of Aryan Mahida , Umang Hirani and Shantanusinh Parmar
+    <br>
+    <br>
+  </div>
+
+</footer>
+
+
 </html>
