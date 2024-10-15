@@ -1,0 +1,96 @@
+<style>
+    /* Scrollbar styles */
+    .other-players::-webkit-scrollbar {
+      width: 8px;
+      background-color: #f1f1f1;
+    }
+  
+    .other-players::-webkit-scrollbar-thumb {
+      background-color: #6da9e9;
+      border-radius: 10px;
+    }
+  
+    .other-players::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+      border-radius: 10px;
+    }
+  
+    /* Player box styles */
+    .player-box {
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 5px;
+      transition: background-color 0.3s ease;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  
+    .player-box:hover {
+      background-color: #f0f0f0;
+    }
+  
+    .player-box span {
+      display: block;
+      margin-bottom: 5px;
+      color: #142d5a; /* Dark blue text color */
+      transition: color 0.3s ease;
+    }
+  
+    .player-box:hover span {
+      color: #6da9e9; /* Light blue text color on hover */
+    }
+  </style>
+  
+  <div class="leaderboard-section" style="text-align: center; padding: 40px; border-radius: 20px; box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden;">
+    <h1 style="margin-bottom: 20px;">Elegant Leaderboard</h1>
+    <div class="outer-container" style="background-color: #6da9e9; border-radius: 50%; width: 300px; height: 300px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: -1;"></div>
+    <div class="inner-container" style="background-color: #fff; border-radius: 20px; padding: 40px; position: relative; z-index: 1;">
+      <div class="new-inner-box" style="background-color: #6da9e9; border-radius: 20px; padding: 20px; position: relative; z-index: 1;">
+        <h2>Leaderboard</h2>
+        <div class="top-3" style="display: flex; justify-content: center; align-items: center; margin-bottom: 40px;">
+          <div class="top-3" style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+            <div class="top-player" style="margin-right: 80px;">
+              <img src="silver_trophy_icon.png" alt="Silver Trophy" style="width: 60px; height: 60px; color: #000000; margin-bottom: 10px;">
+              <div class="round-image" style="background-color: #c0c0c0; border-radius: 50%; border: 3px solid #fff; width: 150px; height: 150px; display: inline-block;">
+                <img src="player1.jpg" alt="Player 1" style="border-radius: 50%; width: 100%; height: 100%;">
+              </div>
+              <p style="margin-top: 5px;color: #000000">Player 1</p>
+            </div>
+            <div class="top-player" style="margin-right: 80px;">
+              <img src="gold_trophy_icon.png" alt="Gold Trophy" style="width: 60px; height: 60px; color: #000000; margin-bottom: 10px;">
+              <div class="round-image" style="background-color: #ffd700; border-radius: 50%; border: 3px solid #fff; width: 180px; height: 180px; display: inline-block;">
+                <img src="player2.jpg" alt="Player 2" style="border-radius: 50%; width: 100%; height: 100%;">
+              </div>
+              <p style="margin-top: 5px;color: #000000">Player 2</p>
+            </div>
+            <div class="top-player">
+              <img src="bronze_trophy_icon.png" alt="Bronze Trophy" style="width: 60px; height: 60px;color: #000000; margin-bottom: 10px;">
+              <div class="round-image" style="background-color: #cd7f32; border-radius: 50%; border: 3px solid #fff; width: 120px; height: 120px; display: inline-block;">
+                <img src="player3.jpg" alt="Player 3" style="border-radius: 50%; width: 100%; height: 100%;">
+              </div>
+              <p style="margin-top: 5px;color: #000000">Player 3</p>
+            </div>
+          </div>
+        </div>
+        <div class="other-players" style="text-align: left; max-height: 200px; overflow-y: auto;">
+          <h3>Other Players</h3>
+          <div class="player-box" style="background-color: #fff; border-radius: 5px; padding: 10px; margin-bottom: 5px;">
+            <span style="float: left;">Player 4</span>
+            <span style="float: right;">Rank: 4</span>
+          </div>
+          <div class="player-box" style="background-color: #fff; border-radius: 5px; padding: 10px; margin-bottom: 5px;">
+            <span style="float: left;">Player 5</span>
+            <span style="float: right;">Rank: 5</span>
+          </div>
+          <div class="player-box" style="background-color: #fff; border-radius: 5px; padding: 10px; margin-bottom: 5px;">
+            <span style="float: left;">Player 6</span>
+            <span style="float: right;">Rank: 6</span>
+          </div>
+          <!-- Add more players as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+  

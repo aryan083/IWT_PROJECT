@@ -15,7 +15,7 @@ Functions/Features:
 •	Integration with ICT portal
 •	Project status (Proposed/Ongoing/Complete)
 •	Leaderboard
-•	Privilege Status
+•	Privilege Status Role managment 
 •	Registration /Login page 
 •	Bug reports/About/Contact
 •	Admin window

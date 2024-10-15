@@ -428,6 +428,8 @@ echo "Faculties Registered : " . $faculty_count . "<br>";
 
 
 
+    
+
 
 
 
@@ -442,7 +444,7 @@ echo "Faculties Registered : " . $faculty_count . "<br>";
   <link rel="stylesheet" href="front-end/navbar-styles.css">
   <script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
 <script src="https://mediafiles.botpress.cloud/253553db-ab34-4e78-aea2-2ff565dc1445/webchat/v2/config.js"></script>
-
++++++
   <script>
     
 function callEvent() {
