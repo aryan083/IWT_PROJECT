@@ -1,47 +1,31 @@
-Student Project Management System (SPMS)
-Aim: To Create a tool for project management and demonstrate at university level courses.
-Need: Due to inefficient documentation and lack of standardized project reports there has been noted a reparation in project ideas and a lack of collaborative platform for project that intersect.
-Proposed Solution: To Create a multifunctional web-based system that solves the above given problem 
-Functions/Features:
-•	Feed(Treading,filter/sort by rating)
-•	Database (Security levels Admin, faculty, Student, Parent, Visitor)
-•	Interactive/Responsive (Comment{Authorised}, Like, Share, Contact)
-•	Navigation bar
-•	Searching tool
-•	Student portfolio (project files DB)
-•	EmbeddedAPI enabled Viewing tool
-•	On-hover Project preview
-•	Faculty Review 
-•	Integration with ICT portal
-•	Project status (Proposed/Ongoing/Complete)
-•	Leaderboard
-•	Privilege Status Role managment 
-•	Registration /Login page 
-•	Bug reports/About/Contact
-•	Admin window
-•	Text/Chat Moderator
-•	Time monitored Proposal (15 day window faculty approval + student input student claim input)
-•	Visible data base
-•	Thought Window
-•	Virtual Chat bot
-•	Calendar
-•	Activity of user/Viewer Statistics
-•	Outreach/Newsletter
-•	Featured Activity/Live stream of Project/Project fair  
-Team Members:
-Shantanusinh Parmar
-Umang Hirani 
-Aryan Mahida
+# 🎓 Student Project Management System (SPMS)
 
+A web-based platform to manage, document, and showcase student projects, helping reduce idea repetition and improve collaboration.
 
+## ✨ Features
 
+* 📂 Project feed with filters (by domain, tech, keywords)
+* 👥 Role-based access: **Admin, Faculty, Student, Parent, Visitor**
+* 💬 Interactive tools: likes, comments, shares, previews
+* 🧑‍🎓 Student portfolios & project history
+* ✅ Faculty reviews & project status tracking
+* 🏆 Leaderboard & progress ranking
+* 📅 Calendar integration for deadlines
+* 🤖 Chatbot support for quick assistance
 
+## 🛠️ Tech Stack
 
+<p align="left">  
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" width="40" height="40"/>  
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" width="40" height="40"/>  
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="40" height="40"/>  
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" alt="Bootstrap" width="40" height="40"/>  
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" width="40" height="40"/>  
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="phpMyAdmin/MySQL" width="40" height="40"/>  
+</p>  
 
+## 👨‍💻 Team
 
-
-
-
-
-
-
+* Shantanusinh Parmar
+* Umang Hirani
+* Aryan Mahida
